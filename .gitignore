@@ -1,0 +1,36 @@
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# vscode
+.vscode
+
+# gradle
+build
+.gradle
+mcmodsrepo
+
+# runs
+run
+run-data
+logs
+*.log
+
+# forge
+src/generated
+forge*changelog.txt
+
+# os
+.DS_Store
+Thumbs.db

@@ -1,0 +1,9 @@
+Copyright (c) 2026 Krabek515
+
+All rights reserved.
+
+Source code, text, textures, models, and sounds in this repository are not
+licensed for redistribution or reuse outside this project.
+
+Minecraft Forge is a separate project licensed under the GNU LGPL. Depending
+on Forge does not relicense this mod, and this file does not relicense Forge.

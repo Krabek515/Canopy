@@ -1,10 +1,13 @@
 package io.github.krabek515.canopy;
 
 import com.mojang.logging.LogUtils;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import io.github.krabek515.canopy.config.CanopyConfig;
+import io.github.krabek515.canopy.item.CanopyItems;
+import io.github.krabek515.canopy.item.CanopyTabs;
+import io.github.krabek515.canopy.network.CanopyNetwork;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
@@ -15,16 +18,15 @@ public class Canopy {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public Canopy(FMLJavaModLoadingContext context) {
-        context.getModEventBus().addListener(this::commonSetup);
-        MinecraftForge.EVENT_BUS.register(this);
+        IEventBus modBus = context.getModEventBus();
+        context.registerConfig(ModConfig.Type.COMMON, CanopyConfig.SPEC);
+        CanopyItems.ITEMS.register(modBus);
+        CanopyTabs.TABS.register(modBus);
+        modBus.addListener(this::commonSetup);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
+        CanopyNetwork.register();
         LOGGER.info("Canopy common setup");
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        LOGGER.info("Canopy server starting");
     }
 }

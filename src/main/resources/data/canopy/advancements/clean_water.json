@@ -1,0 +1,23 @@
+{
+  "parent": "canopy:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:potion",
+      "nbt": "{Potion:\"minecraft:water\"}"
+    },
+    "title": {
+      "translate": "advancement.canopy.clean_water"
+    },
+    "description": {
+      "translate": "advancement.canopy.clean_water.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "drink": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

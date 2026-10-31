@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:bamboo"
+    },
+    "title": {
+      "translate": "advancement.canopy.root"
+    },
+    "description": {
+      "translate": "advancement.canopy.root.desc"
+    },
+    "frame": "task",
+    "background": "minecraft:textures/block/jungle_leaves.png",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "awake": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

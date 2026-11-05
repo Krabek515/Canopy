@@ -1,8 +1,12 @@
 package io.github.krabek515.canopy;
 
 import com.mojang.logging.LogUtils;
+import io.github.krabek515.canopy.block.CanopyBlocks;
+import io.github.krabek515.canopy.body.CanopyEffects;
 import io.github.krabek515.canopy.config.CanopyConfig;
+import io.github.krabek515.canopy.entity.CanopyEntities;
 import io.github.krabek515.canopy.item.CanopyItems;
+import io.github.krabek515.canopy.world.CanopyFeatures;
 import io.github.krabek515.canopy.item.CanopyTabs;
 import io.github.krabek515.canopy.network.CanopyNetwork;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,12 +24,17 @@ public class Canopy {
     public Canopy(FMLJavaModLoadingContext context) {
         IEventBus modBus = context.getModEventBus();
         context.registerConfig(ModConfig.Type.COMMON, CanopyConfig.SPEC);
+        CanopyBlocks.BLOCKS.register(modBus);
+        CanopyFeatures.FEATURES.register(modBus);
         CanopyItems.ITEMS.register(modBus);
+        CanopyEntities.ENTITIES.register(modBus);
+        CanopyEffects.EFFECTS.register(modBus);
         CanopyTabs.TABS.register(modBus);
         modBus.addListener(this::commonSetup);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(CanopyEntities::registerSpawns);
         CanopyNetwork.register();
         LOGGER.info("Canopy common setup");
     }

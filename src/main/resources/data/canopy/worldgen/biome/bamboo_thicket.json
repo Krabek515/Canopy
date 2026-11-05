@@ -1,0 +1,112 @@
+{
+  "carvers": {
+    "air": [
+      "minecraft:canyon"
+    ]
+  },
+  "downfall": 0.9,
+  "effects": {
+    "fog_color": 11584650,
+    "foliage_color": 3176224,
+    "grass_color": 3832360,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "minecraft:music.overworld.bamboo_jungle"
+    },
+    "sky_color": 8102857,
+    "water_color": 1789246,
+    "water_fog_color": 932396
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:ore_dirt",
+      "minecraft:ore_gravel",
+      "minecraft:disk_clay"
+    ],
+    [],
+    [
+      "minecraft:spring_water"
+    ],
+    [
+      "canopy:thorny_brush",
+      "canopy:taro",
+      "canopy:bitter_herb",
+      "canopy:marked_cargo",
+      "minecraft:bamboo",
+      "canopy:canopy_trees_thin",
+      "canopy:palm_tree",
+      "canopy:understory_trees_thin",
+      "canopy:bushes",
+      "minecraft:patch_grass_jungle",
+      "minecraft:vines",
+      "canopy:undergrowth"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:parrot",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 8
+      },
+      {
+        "type": "canopy:agouti",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 10
+      },
+      {
+        "type": "canopy:jaguar",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 4
+      },
+      {
+        "type": "canopy:snake",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 8
+      },
+      {
+        "type": "canopy:toucan",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "canopy:tapir",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.9
+}

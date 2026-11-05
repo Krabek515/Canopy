@@ -1,0 +1,33 @@
+{
+  "textures": {
+    "cloth": "canopy:block/canvas",
+    "roll": "canopy:block/canvas_dark",
+    "particle": "canopy:block/canvas"
+  },
+  "elements": [
+    {
+      "from": [2, 0, 2],
+      "to": [14, 3, 14],
+      "faces": {
+        "down": { "uv": [2, 2, 14, 14], "texture": "#cloth", "cullface": "down" },
+        "up": { "uv": [2, 2, 14, 14], "texture": "#cloth" },
+        "north": { "uv": [2, 13, 14, 16], "texture": "#cloth" },
+        "south": { "uv": [2, 13, 14, 16], "texture": "#cloth" },
+        "west": { "uv": [2, 13, 14, 16], "texture": "#cloth" },
+        "east": { "uv": [2, 13, 14, 16], "texture": "#cloth" }
+      }
+    },
+    {
+      "from": [4, 3, 5],
+      "to": [12, 6, 11],
+      "faces": {
+        "down": { "uv": [4, 5, 12, 11], "texture": "#roll" },
+        "up": { "uv": [4, 5, 12, 11], "texture": "#roll" },
+        "north": { "uv": [4, 10, 12, 13], "texture": "#roll" },
+        "south": { "uv": [4, 10, 12, 13], "texture": "#roll" },
+        "west": { "uv": [5, 10, 11, 13], "texture": "#roll" },
+        "east": { "uv": [5, 10, 11, 13], "texture": "#roll" }
+      }
+    }
+  ]
+}

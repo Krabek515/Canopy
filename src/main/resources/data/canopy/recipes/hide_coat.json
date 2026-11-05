@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "H H",
+    "HHH",
+    "HHH"
+  ],
+  "key": {
+    "H": { "item": "canopy:hide" }
+  },
+  "result": { "item": "canopy:hide_coat" }
+}

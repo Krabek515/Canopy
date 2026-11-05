@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F",
+    "B"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "B": {
+      "item": "minecraft:bamboo"
+    }
+  },
+  "result": {
+    "item": "canopy:stone_machete"
+  }
+}

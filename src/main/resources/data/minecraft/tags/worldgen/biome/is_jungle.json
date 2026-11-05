@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "canopy:lowland",
+    "canopy:bamboo_thicket",
+    "canopy:flooded",
+    "canopy:highland"
+  ]
+}

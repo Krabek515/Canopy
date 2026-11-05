@@ -12,6 +12,10 @@ public final class CanopyDamage {
     public static final ResourceKey<DamageType> THIRST = key("thirst");
     public static final ResourceKey<DamageType> HEAT = key("heat");
     public static final ResourceKey<DamageType> COLD = key("cold");
+    public static final ResourceKey<DamageType> THORNS = key("thorns");
+    public static final ResourceKey<DamageType> VENOM = key("venom");
+    public static final ResourceKey<DamageType> FLOOD = key("flood");
+    public static final ResourceKey<DamageType> GAS = key("gas");
 
     private CanopyDamage() {
     }

@@ -1,0 +1,22 @@
+{
+  "parent": "canopy:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:cooked_beef"
+    },
+    "title": {
+      "translate": "advancement.canopy.light_fingers"
+    },
+    "description": {
+      "translate": "advancement.canopy.light_fingers.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "stolen": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

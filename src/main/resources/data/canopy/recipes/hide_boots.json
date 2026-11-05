@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "H H",
+    "H H"
+  ],
+  "key": {
+    "H": { "item": "canopy:hide" }
+  },
+  "result": { "item": "canopy:hide_boots" }
+}

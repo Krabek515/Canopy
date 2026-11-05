@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "N",
+    "M"
+  ],
+  "key": {
+    "N": {
+      "item": "canopy:nugget"
+    },
+    "M": {
+      "item": "canopy:stone_machete"
+    }
+  },
+  "result": {
+    "item": "canopy:metal_machete"
+  }
+}

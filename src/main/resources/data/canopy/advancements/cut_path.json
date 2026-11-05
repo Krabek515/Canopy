@@ -1,0 +1,22 @@
+{
+  "parent": "canopy:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:flint"
+    },
+    "title": {
+      "translate": "advancement.canopy.cut_path"
+    },
+    "description": {
+      "translate": "advancement.canopy.cut_path.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "cut": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

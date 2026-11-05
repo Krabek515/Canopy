@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "canopy:bitter_herb"
+    },
+    {
+      "item": "canopy:taro_root"
+    }
+  ],
+  "result": {
+    "item": "canopy:bad_brew"
+  }
+}

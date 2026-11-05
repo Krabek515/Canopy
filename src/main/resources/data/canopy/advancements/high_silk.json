@@ -1,0 +1,22 @@
+{
+  "parent": "canopy:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:string"
+    },
+    "title": {
+      "translate": "advancement.canopy.high_silk"
+    },
+    "description": {
+      "translate": "advancement.canopy.high_silk.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "took": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

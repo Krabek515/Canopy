@@ -1,0 +1,91 @@
+{
+  "carvers": {
+    "air": [
+      "minecraft:canyon"
+    ]
+  },
+  "downfall": 0.55,
+  "effects": {
+    "fog_color": 13026468,
+    "foliage_color": 6056746,
+    "grass_color": 6978098,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "minecraft:music.overworld.jungle"
+    },
+    "sky_color": 10202992,
+    "water_color": 2182986,
+    "water_fog_color": 932396
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:ore_dirt",
+      "minecraft:ore_gravel",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand"
+    ],
+    [],
+    [
+      "minecraft:spring_water"
+    ],
+    [
+      "canopy:thorny_brush_light",
+      "canopy:canopy_trees_sparse",
+      "canopy:understory_trees_thin",
+      "canopy:palm_tree_rare",
+      "minecraft:patch_grass_jungle",
+      "minecraft:vines",
+      "canopy:exposed_vein",
+      "canopy:undergrowth"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "canopy:agouti",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 4
+      },
+      {
+        "type": "canopy:snake",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 6
+      },
+      {
+        "type": "canopy:capybara",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 1
+}

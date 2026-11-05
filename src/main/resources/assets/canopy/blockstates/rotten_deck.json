@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "kind=bog": {
+      "model": "canopy:block/rotten_deck"
+    },
+    "kind=stakes": {
+      "model": "canopy:block/rotten_deck"
+    },
+    "kind=snake": {
+      "model": "canopy:block/rotten_deck"
+    }
+  }
+}

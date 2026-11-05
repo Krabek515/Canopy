@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:item/glass_bottle"
+    "layer0": "canopy:item/bamboo_flask"
   },
   "overrides": [
     {
@@ -9,6 +9,12 @@
         "canopy:water": 0.5
       },
       "model": "canopy:item/bamboo_flask_murky"
+    },
+    {
+      "predicate": {
+        "canopy:water": 0.75
+      },
+      "model": "canopy:item/bamboo_flask_fresh"
     },
     {
       "predicate": {

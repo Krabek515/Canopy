@@ -1,0 +1,22 @@
+{
+  "parent": "canopy:root",
+  "display": {
+    "icon": {
+      "item": "canopy:fiber_tunic"
+    },
+    "title": {
+      "translate": "advancement.canopy.woven"
+    },
+    "description": {
+      "translate": "advancement.canopy.woven.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "weave": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

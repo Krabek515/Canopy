@@ -1,5 +1,6 @@
 package io.github.krabek515.canopy.item;
 
+import io.github.krabek515.canopy.body.WoundCare;
 import io.github.krabek515.canopy.capability.CanopyCapabilities;
 import io.github.krabek515.canopy.network.CanopyNetwork;
 import io.github.krabek515.canopy.progress.CanopyAdvancements;
@@ -71,6 +72,7 @@ public class FlaskItem extends Item {
     public Component getName(ItemStack stack) {
         return Component.translatable(switch (waterOf(stack)) {
             case MURKY -> "item.canopy.bamboo_flask.murky";
+            case FRESH -> "item.canopy.bamboo_flask.fresh";
             case CLEAN -> "item.canopy.bamboo_flask.clean";
             case EMPTY -> "item.canopy.bamboo_flask";
         });
@@ -80,6 +82,7 @@ public class FlaskItem extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         String key = switch (waterOf(stack)) {
             case MURKY -> "item.canopy.bamboo_flask.hint.murky";
+            case FRESH -> "item.canopy.bamboo_flask.hint.fresh";
             case CLEAN -> "item.canopy.bamboo_flask.hint.clean";
             case EMPTY -> "item.canopy.bamboo_flask.hint.empty";
         };
@@ -92,7 +95,7 @@ public class FlaskItem extends Item {
         BlockState state = level.getBlockState(context.getClickedPos());
         ItemStack stack = context.getItemInHand();
         FlaskWater water = waterOf(stack);
-        if (water == FlaskWater.MURKY && isLitHeat(state)) {
+        if ((water == FlaskWater.MURKY || water == FlaskWater.FRESH) && isLitHeat(state)) {
             setWater(stack, FlaskWater.CLEAN);
             if (!level.isClientSide) {
                 level.playSound(null, context.getClickedPos(), SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.35f, 1.4f);
@@ -113,6 +116,14 @@ public class FlaskItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         FlaskWater water = waterOf(stack);
+        if (player.isShiftKeyDown() && water != FlaskWater.EMPTY) {
+            if (!level.isClientSide && player instanceof ServerPlayer server
+                    && WoundCare.wash(server, water)
+                    && !player.getAbilities().instabuild) {
+                setWater(stack, FlaskWater.EMPTY);
+            }
+            return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+        }
         if (water == FlaskWater.EMPTY) {
             HitResult hit = player.pick(5.0, 0f, true);
             if (hit.getType() == HitResult.Type.BLOCK && hit instanceof BlockHitResult blockHit
@@ -145,6 +156,8 @@ public class FlaskItem extends Item {
                     stats.drink(3f);
                     player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 300, 0));
                     player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 120, 0));
+                } else if (water == FlaskWater.FRESH) {
+                    stats.drink(6f);
                 } else if (water == FlaskWater.CLEAN) {
                     stats.drink(10f);
                     CanopyAdvancements.award(player, "clean_water");

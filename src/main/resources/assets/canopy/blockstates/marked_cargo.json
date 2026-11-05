@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "canopy:block/marked_cargo"
+    }
+  }
+}

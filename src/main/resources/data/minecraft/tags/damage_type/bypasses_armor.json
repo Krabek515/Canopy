@@ -3,6 +3,8 @@
   "values": [
     "canopy:thirst",
     "canopy:heat",
-    "canopy:cold"
+    "canopy:cold",
+    "canopy:thorns",
+    "canopy:venom"
   ]
 }

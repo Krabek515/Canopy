@@ -1,0 +1,22 @@
+{
+  "parent": "canopy:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:mangrove_planks"
+    },
+    "title": {
+      "translate": "advancement.canopy.gave_way"
+    },
+    "description": {
+      "translate": "advancement.canopy.gave_way.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "fell": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

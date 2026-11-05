@@ -8,9 +8,9 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public record SyncSurvivalPacket(float thirst, float temperature, float wetness, float stamina, long recoveringUntil) {
+public record SyncSurvivalPacket(float thirst, float temperature, float wetness, float stamina, float hand, long recoveringUntil, long bleedingUntil, int wound, boolean woundDirty, long floodWarnUntil, long floodWaveUntil) {
     public static SyncSurvivalPacket from(SurvivalStats stats) {
-        return new SyncSurvivalPacket(stats.thirst(), stats.temperature(), stats.wetness(), stats.stamina(), stats.recoveringUntil());
+        return new SyncSurvivalPacket(stats.thirst(), stats.temperature(), stats.wetness(), stats.stamina(), stats.hand(), stats.recoveringUntil(), stats.bleedingUntil(), stats.wound(), stats.woundDirty(), stats.floodWarnUntil(), stats.floodWaveUntil());
     }
 
     public static void encode(SyncSurvivalPacket packet, FriendlyByteBuf buf) {
@@ -18,11 +18,17 @@ public record SyncSurvivalPacket(float thirst, float temperature, float wetness,
         buf.writeFloat(packet.temperature);
         buf.writeFloat(packet.wetness);
         buf.writeFloat(packet.stamina);
+        buf.writeFloat(packet.hand);
         buf.writeLong(packet.recoveringUntil);
+        buf.writeLong(packet.bleedingUntil);
+        buf.writeVarInt(packet.wound);
+        buf.writeBoolean(packet.woundDirty);
+        buf.writeLong(packet.floodWarnUntil);
+        buf.writeLong(packet.floodWaveUntil);
     }
 
     public static SyncSurvivalPacket decode(FriendlyByteBuf buf) {
-        return new SyncSurvivalPacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readLong());
+        return new SyncSurvivalPacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readLong(), buf.readLong(), buf.readVarInt(), buf.readBoolean(), buf.readLong(), buf.readLong());
     }
 
     public static void handle(SyncSurvivalPacket packet, Supplier<NetworkEvent.Context> context) {
@@ -40,6 +46,12 @@ public record SyncSurvivalPacket(float thirst, float temperature, float wetness,
         stats.setTemperature(temperature);
         stats.setWetness(wetness);
         stats.setStamina(stamina);
+        stats.setHand(hand);
         stats.setRecoveringUntil(recoveringUntil);
+        stats.setBleedingUntil(bleedingUntil);
+        stats.setWound(wound);
+        stats.setWoundDirty(woundDirty);
+        stats.setFloodWarnUntil(floodWarnUntil);
+        stats.setFloodWaveUntil(floodWaveUntil);
     }
 }

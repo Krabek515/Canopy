@@ -1,0 +1,9 @@
+{
+  "values": [
+    "canopy:taro_root",
+    "canopy:cooked_taro",
+    "canopy:raw_meat",
+    "canopy:cooked_meat",
+    "canopy:spoiled_meat"
+  ]
+}

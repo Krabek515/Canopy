@@ -1,6 +1,7 @@
 package io.github.krabek515.canopy.body;
 
 import io.github.krabek515.canopy.capability.SurvivalStats;
+import io.github.krabek515.canopy.item.WornClothing;
 import io.github.krabek515.canopy.config.CanopyConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -36,6 +37,7 @@ public final class BodySimulation {
         if (stats.nearHeat()) {
             ambient += 22f;
         }
+        ambient += WornClothing.heat(player);
         if (stats.wetness() > 0.45f) {
             ambient -= 6f + stats.wetness() * 8f;
         }
@@ -48,15 +50,17 @@ public final class BodySimulation {
         stats.setTemperature(body);
 
         float wet = stats.wetness();
+        float wetGain = WornClothing.wetGain(player);
+        float drySpeed = WornClothing.drySpeed(player);
         if (player.isInWater()) {
-            wet += 0.18f;
+            wet += 0.18f * wetGain;
         } else if (raining) {
-            wet += 0.06f;
+            wet += 0.06f * wetGain;
         } else {
-            wet -= stats.nearHeat() ? 0.1f : 0.02f;
+            wet -= (stats.nearHeat() ? 0.1f : 0.02f) * drySpeed;
         }
         if (stats.nearHeat() && !player.isInWater()) {
-            wet -= 0.04f;
+            wet -= 0.04f * drySpeed;
         }
         stats.setWetness(wet);
 
@@ -69,9 +73,14 @@ public final class BodySimulation {
         } else if (stats.temperature() < 30f) {
             thirstLoss *= 0.8f;
         }
+        if (stats.wound() == SurvivalStats.WOUND_FEVER) {
+            thirstLoss *= 1.55f;
+        }
         stats.setThirst(stats.thirst() - thirstLoss * drain);
 
         long now = level.getGameTime();
+        WoundCare.tick(player, stats);
+        Gas.tick(player);
         if (!stats.isRecovering(now)) {
             applyStrain(player, stats);
             if (player.tickCount % SurvivalTuning.hurtIntervalTicks(difficulty) == 0) {
@@ -90,6 +99,7 @@ public final class BodySimulation {
             if (stats.wetness() > 0.7f) {
                 cost += 0.02f;
             }
+            cost += WornClothing.sprintTax(player);
             stats.setStamina(stats.stamina() - cost * drain);
         } else if (stats.stamina() < SurvivalStats.NEED_MAX) {
             float regen = 0.025f;

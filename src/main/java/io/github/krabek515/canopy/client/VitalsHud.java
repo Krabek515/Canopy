@@ -69,6 +69,15 @@ public final class VitalsHud {
     }
 
     private static Component warning(SurvivalStats stats) {
+        if (stats.wound() == SurvivalStats.WOUND_FEVER) {
+            return Component.translatable("hud.canopy.fever");
+        }
+        if (stats.wound() == SurvivalStats.WOUND_INFECTED) {
+            return Component.translatable("hud.canopy.infected");
+        }
+        if (stats.wound() == SurvivalStats.WOUND_OPEN) {
+            return Component.translatable(stats.woundDirty() ? "hud.canopy.wound_dirty" : "hud.canopy.wound");
+        }
         if (stats.thirst() <= 4f) {
             return Component.translatable("hud.canopy.dehydrated");
         }
@@ -80,6 +89,9 @@ public final class VitalsHud {
         }
         if (stats.wetness() > 0.85f) {
             return Component.translatable("hud.canopy.soaked");
+        }
+        if (stats.hand() >= SurvivalStats.HAND_INJURED) {
+            return Component.translatable("hud.canopy.hand");
         }
         if (stats.stamina() <= 0.5f) {
             return Component.translatable("hud.canopy.exhausted");

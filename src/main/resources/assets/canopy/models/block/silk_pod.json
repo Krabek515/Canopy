@@ -1,0 +1,33 @@
+{
+  "textures": {
+    "silk": "canopy:block/silk_pod",
+    "thread": "canopy:block/silk_pod",
+    "particle": "canopy:block/silk_pod"
+  },
+  "elements": [
+    {
+      "from": [4, 0, 4],
+      "to": [12, 7, 12],
+      "faces": {
+        "down": { "uv": [4, 4, 12, 12], "texture": "#silk", "cullface": "down" },
+        "up": { "uv": [4, 4, 12, 12], "texture": "#silk" },
+        "north": { "uv": [4, 9, 12, 16], "texture": "#silk" },
+        "south": { "uv": [4, 9, 12, 16], "texture": "#silk" },
+        "west": { "uv": [4, 9, 12, 16], "texture": "#silk" },
+        "east": { "uv": [4, 9, 12, 16], "texture": "#silk" }
+      }
+    },
+    {
+      "from": [6, 7, 6],
+      "to": [10, 8, 10],
+      "faces": {
+        "up": { "uv": [6, 6, 10, 10], "texture": "#thread" },
+        "down": { "uv": [6, 6, 10, 10], "texture": "#thread" },
+        "north": { "uv": [6, 0, 10, 1], "texture": "#thread" },
+        "south": { "uv": [6, 0, 10, 1], "texture": "#thread" },
+        "west": { "uv": [6, 0, 10, 1], "texture": "#thread" },
+        "east": { "uv": [6, 0, 10, 1], "texture": "#thread" }
+      }
+    }
+  ]
+}

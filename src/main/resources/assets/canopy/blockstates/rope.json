@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "canopy:block/rope",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "canopy:block/rope"
+    },
+    "facing=south": {
+      "model": "canopy:block/rope",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "canopy:block/rope",
+      "y": 270
+    }
+  }
+}

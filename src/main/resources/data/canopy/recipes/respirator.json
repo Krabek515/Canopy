@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["C", "B"],
+  "key": {
+    "C": { "item": "minecraft:charcoal" },
+    "B": { "item": "minecraft:bamboo" }
+  },
+  "result": { "item": "canopy:respirator" }
+}

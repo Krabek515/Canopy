@@ -3,6 +3,7 @@ package io.github.krabek515.canopy.item;
 public enum FlaskWater {
     EMPTY(0f),
     MURKY(0.5f),
+    FRESH(0.75f),
     CLEAN(1f);
 
     private final float modelValue;

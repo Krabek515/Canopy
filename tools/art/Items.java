@@ -163,6 +163,25 @@ final class Items {
         Art.sprite16("item/raw_meat", raw);
         Art.sprite16("item/cooked_meat", recolor(raw, "RrqF", "Ccvv"));
         Art.sprite16("item/spoiled_meat", recolor(raw, "RrqF", "Oolo"));
+
+        // Банан: дуга жёлтого пальца с тёмными кончиками.
+        Art.sprite16("item/banana",
+                "................",
+                "...........kk...",
+                "..........k2wk..",
+                ".........k222k..",
+                "........k222k...",
+                ".......k222k....",
+                "......k222k.....",
+                ".....k222k......",
+                "....k222k.......",
+                "...k222k........",
+                "..k222k.........",
+                "..k22k..........",
+                "..kwk...........",
+                "...k............",
+                "................",
+                "................");
     }
 
     static void medicine() throws IOException {

@@ -88,6 +88,12 @@ public final class Art {
         p('f', 0xFF8B6A7E);
         // красная ткань
         p('Z', 0xFF8E2B24);
+        // орхидея
+        p('J', 0xFFE08ACB);
+        p('U', 0xFF9E3D8A);
+        // спелый банан
+        p('2', 0xFFF7D94A);
+        p('3', 0xFFCFA93A);
     }
 
     private static void p(char c, int argb) {

@@ -75,19 +75,13 @@ public final class JournalPages {
             if (stats.wound() == SurvivalStats.WOUND_NONE && stats.isBleeding(player.level().getGameTime())) {
                 keys.add("journal.canopy.now.bleeding");
             }
-            if (stats.thirst() <= 6f) {
-                keys.add(journal.knows(Journal.CRAFT_FLASK) ? "journal.canopy.now.thirst_flask" : "journal.canopy.now.thirst");
-            }
             if (player.getFoodData().getFoodLevel() <= 6) {
                 keys.add(journal.knows(Journal.CRAFT_COOKED) ? "journal.canopy.now.food_fire" : "journal.canopy.now.food");
             }
             if (stats.temperature() >= 76f) {
-                keys.add("journal.canopy.now.hot");
-            } else if (stats.temperature() <= 24f) {
-                keys.add("journal.canopy.now.cold");
-            }
-            if (stats.hand() >= SurvivalStats.HAND_INJURED) {
-                keys.add("journal.canopy.now.hand");
+                keys.add(journal.knows(Journal.CRAFT_FLASK) ? "journal.canopy.now.hot_flask" : "journal.canopy.now.hot");
+            } else if (stats.temperature() >= 66f) {
+                keys.add("journal.canopy.now.warm");
             }
             if (stats.wetness() > 0.75f) {
                 keys.add("journal.canopy.now.wet_clothes");

@@ -98,23 +98,14 @@ public final class WoundCare {
     public static boolean bandage(ServerPlayer player) {
         boolean[] used = {false};
         player.getCapability(CanopyCapabilities.SURVIVAL).ifPresent(stats -> {
-            boolean hand = stats.hand() > 0f;
             boolean wounded = stats.wound() != SurvivalStats.WOUND_NONE;
-            if (!hand && !wounded) {
+            if (!wounded) {
                 player.displayClientMessage(Component.translatable("message.canopy.bandage_nothing"), true);
                 return;
             }
-            if (wounded && stats.woundDirty()) {
+            if (stats.woundDirty()) {
                 player.displayClientMessage(Component.translatable("message.canopy.bandage_dirty"), true);
-                if (!hand) {
-                    return;
-                }
-            }
-            if (hand) {
-                stats.setHand(0f);
-                player.displayClientMessage(Component.translatable("message.canopy.bandage_hand"), true);
-                used[0] = true;
-                JournalLearning.note(player, Journal.CRAFT_BANDAGE);
+                return;
             }
             if (wounded && !stats.woundDirty()) {
                 stats.assignWound(SurvivalStats.WOUND_NONE, false, player.level().getGameTime());

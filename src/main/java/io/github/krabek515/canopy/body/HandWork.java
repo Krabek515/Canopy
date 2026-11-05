@@ -8,7 +8,6 @@ import io.github.krabek515.canopy.item.CanopyItems;
 import io.github.krabek515.canopy.item.MacheteItem;
 import io.github.krabek515.canopy.progress.CanopyAdvancements;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -58,53 +57,26 @@ public final class HandWork {
             return;
         }
         player.makeStuckInBlock(thicket, new Vec3(0.35, 0.75, 0.35));
-        if (player.level().isClientSide || !(player instanceof ServerPlayer server)) {
-            return;
-        }
-        if (Math.abs(player.getX() - player.xOld) < 0.003 && Math.abs(player.getZ() - player.zOld) < 0.003) {
-            return;
-        }
-        server.getCapability(CanopyCapabilities.SURVIVAL).ifPresent(stats -> stats.setStamina(stats.stamina() - 0.03f));
     }
 
+    /**
+     * Ванильная скорость по умолчанию. Свои джунглевые блоки задают свои правила:
+     * чаща и листва режутся мачете, жила берётся только стамеской.
+     * Мачете остаётся полезным инструментом и в обычном мире — на дереве оно быстрее руки.
+     */
     public static void adjustBreak(PlayerEvent.BreakSpeed event, SurvivalStats stats) {
         Player player = event.getEntity();
         BlockState state = event.getState();
         boolean machete = holdingMachete(player);
         boolean metal = holdingMetal(player);
         boolean gouge = holdingGouge(player);
-        Kind kind = kind(state);
-        float speed = switch (kind) {
+        float speed = switch (kind(state)) {
             case VEIN -> gouge ? 6f : 0.04f;
-            case FOLIAGE -> machete ? 4f : 2f;
             case THICKET -> metal ? 10f : machete ? 8f : 0.25f;
-            case SOIL -> 0.22f;
-            case WOOD -> metal ? 2f : machete ? 1.5f : 0.12f;
-            case HARD -> 0.04f;
-            case OTHER -> event.getNewSpeed();
+            case FOLIAGE -> machete ? Math.max(4f, event.getNewSpeed()) : event.getNewSpeed();
+            case WOOD -> machete ? event.getNewSpeed() * (metal ? 2f : 1.5f) : event.getNewSpeed();
+            default -> event.getNewSpeed();
         };
-        boolean strain = kind == Kind.HARD || (kind == Kind.VEIN && !gouge) || ((kind == Kind.WOOD || kind == Kind.THICKET) && !machete);
-        if (!player.level().isClientSide && strain && stats.strainHand(0.002f) && player instanceof ServerPlayer server) {
-            server.displayClientMessage(Component.translatable("message.canopy.hand_hurt"), true);
-        }
-        if (!player.level().isClientSide && gouge && kind == Kind.VEIN) {
-            stats.setStamina(Math.max(0f, stats.stamina() - 0.01f));
-        }
-        if (!player.level().isClientSide && machete && (kind == Kind.THICKET || kind == Kind.WOOD)) {
-            stats.setStamina(Math.max(0f, stats.stamina() - (metal ? 0.008f : 0.012f)));
-        }
-        if (stats.hand() >= SurvivalStats.HAND_INJURED) {
-            speed *= 0.45f;
-        }
-        if (stats.stamina() <= 0.5f) {
-            speed *= 0.45f;
-        }
-        if (stats.temperature() < 36f || stats.temperature() > 64f) {
-            speed *= 0.75f;
-        }
-        if (stats.wetness() > 0.8f) {
-            speed *= 0.85f;
-        }
         event.setNewSpeed(Math.max(0.01f, speed));
     }
 
@@ -115,7 +87,7 @@ public final class HandWork {
         BlockState state = event.getState();
         Kind kind = kind(state);
         player.getCapability(CanopyCapabilities.SURVIVAL).ifPresent(stats -> {
-            if (kind == Kind.SOIL) {
+            if (kind == Kind.SOIL && io.github.krabek515.canopy.body.JungleClimate.inJungle(player)) {
                 stats.setWetness(stats.wetness() + 0.05f);
             }
         });
@@ -145,17 +117,14 @@ public final class HandWork {
         if (state.is(FOLIAGE) || state.is(BlockTags.LEAVES) || state.is(BlockTags.SAPLINGS)) {
             return Kind.FOLIAGE;
         }
-        if (state.is(SOIL)) {
-            return Kind.SOIL;
-        }
         if (state.is(BlockTags.LOGS) || state.is(BlockTags.PLANKS) || state.is(BlockTags.WOODEN_STAIRS)
                 || state.is(BlockTags.WOODEN_SLABS) || state.is(BlockTags.WOODEN_FENCES)
                 || state.is(BlockTags.WOODEN_DOORS) || state.is(BlockTags.WOODEN_TRAPDOORS)
                 || state.is(BlockTags.MINEABLE_WITH_AXE)) {
             return Kind.WOOD;
         }
-        if (state.is(BlockTags.MINEABLE_WITH_PICKAXE)) {
-            return Kind.HARD;
+        if (state.is(SOIL)) {
+            return Kind.SOIL;
         }
         return Kind.OTHER;
     }
@@ -166,7 +135,6 @@ public final class HandWork {
         THICKET,
         SOIL,
         WOOD,
-        HARD,
         OTHER
     }
 }

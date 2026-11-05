@@ -30,7 +30,12 @@ public class HammockBlock extends BedBlock {
 
     @Override
     public net.minecraft.world.level.block.entity.BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new HammockBlockEntity(pos, state);
+        return null;
+    }
+
+    @Override
+    public net.minecraft.world.level.block.RenderShape getRenderShape(BlockState state) {
+        return net.minecraft.world.level.block.RenderShape.MODEL;
     }
 
     @Override

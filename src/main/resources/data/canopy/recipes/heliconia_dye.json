@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [ { "item": "canopy:heliconia" } ],
+  "result": { "item": "minecraft:red_dye", "count": 2 }
+}

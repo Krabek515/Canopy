@@ -73,6 +73,11 @@ public final class CanopyItems {
     public static final RegistryObject<Item> LOG_FUNGUS = ITEMS.register("log_fungus", () -> new HintedBlockItem(CanopyBlocks.LOG_FUNGUS.get(), new Item.Properties().food(
             new FoodProperties.Builder().nutrition(2).saturationMod(0.2f).build()
     ), "item.canopy.log_fungus.hint"));
+    public static final RegistryObject<Item> ORCHID = ITEMS.register("orchid", () -> new BlockItem(CanopyBlocks.ORCHID.get(), new Item.Properties()));
+    public static final RegistryObject<Item> BANANA = ITEMS.register("banana", () -> new HintedItem(new Item.Properties().food(
+            new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).build()
+    ), "item.canopy.banana.hint"));
+    public static final RegistryObject<Item> BANANA_BUNCH = ITEMS.register("banana_bunch", () -> new BlockItem(CanopyBlocks.BANANA_BUNCH.get(), new Item.Properties()));
     public static final RegistryObject<Item> WATER_LIANA = ITEMS.register("water_liana", () -> new BlockItem(CanopyBlocks.WATER_LIANA.get(), new Item.Properties()));
     public static final RegistryObject<Item> FIBER_HOOD = clothing("fiber_hood", ClothingMaterial.FIBER, ArmorItem.Type.HELMET, 0x6E8B54, -1.5f, 0.05f, -0.12f, 0.25f, 0f, false, "item.canopy.fiber.hint");
     public static final RegistryObject<Item> FIBER_TUNIC = clothing("fiber_tunic", ClothingMaterial.FIBER, ArmorItem.Type.CHESTPLATE, 0x6E8B54, -1.5f, 0.05f, -0.12f, 0.25f, 0f, false, "item.canopy.fiber.hint");

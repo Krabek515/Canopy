@@ -153,13 +153,13 @@ public class FlaskItem extends Item {
         if (!level.isClientSide && entity instanceof ServerPlayer player) {
             player.getCapability(CanopyCapabilities.SURVIVAL).ifPresent(stats -> {
                 if (water == FlaskWater.MURKY) {
-                    stats.drink(3f);
+                    stats.setTemperature(stats.temperature() - 4f);
                     player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 300, 0));
                     player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 120, 0));
                 } else if (water == FlaskWater.FRESH) {
-                    stats.drink(6f);
+                    stats.setTemperature(stats.temperature() - 8f);
                 } else if (water == FlaskWater.CLEAN) {
-                    stats.drink(10f);
+                    stats.setTemperature(stats.temperature() - 12f);
                     CanopyAdvancements.award(player, "clean_water");
                 }
             });

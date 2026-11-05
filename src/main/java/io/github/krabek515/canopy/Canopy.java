@@ -25,11 +25,11 @@ public class Canopy {
         IEventBus modBus = context.getModEventBus();
         context.registerConfig(ModConfig.Type.COMMON, CanopyConfig.SPEC);
         CanopyBlocks.BLOCKS.register(modBus);
-        io.github.krabek515.canopy.block.CanopyBlockEntities.BLOCK_ENTITIES.register(modBus);
         CanopyFeatures.FEATURES.register(modBus);
         CanopyItems.ITEMS.register(modBus);
         CanopyEntities.ENTITIES.register(modBus);
         io.github.krabek515.canopy.item.CanopyRecipes.SERIALIZERS.register(modBus);
+        io.github.krabek515.canopy.world.CanopyBiomeSource.SOURCES.register(modBus);
         CanopyEffects.EFFECTS.register(modBus);
         CanopyTabs.TABS.register(modBus);
         modBus.addListener(this::commonSetup);

@@ -50,7 +50,7 @@ public class DoseItem extends HintedItem {
             if (antidote) {
                 boolean venom = player.hasEffect(CanopyEffects.VENOM.get());
                 player.removeEffect(CanopyEffects.VENOM.get());
-                player.getCapability(CanopyCapabilities.SURVIVAL).ifPresent(stats -> stats.drink(4f));
+                player.getCapability(CanopyCapabilities.SURVIVAL).ifPresent(stats -> stats.setTemperature(stats.temperature() - 4f));
                 player.displayClientMessage(Component.translatable(venom ? "message.canopy.antidote" : "message.canopy.antidote_spare"), true);
                 if (venom) {
                     CanopyAdvancements.award(player, "antidote");

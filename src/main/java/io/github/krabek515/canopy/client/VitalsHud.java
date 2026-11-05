@@ -2,6 +2,7 @@ package io.github.krabek515.canopy.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.krabek515.canopy.Canopy;
+import io.github.krabek515.canopy.body.JungleClimate;
 import io.github.krabek515.canopy.capability.CanopyCapabilities;
 import io.github.krabek515.canopy.capability.SurvivalStats;
 import net.minecraft.client.Minecraft;
@@ -30,24 +31,28 @@ public final class VitalsHud {
         if (player.isCreative() || player.isSpectator()) {
             return;
         }
-        player.getCapability(CanopyCapabilities.SURVIVAL).ifPresent(stats -> draw(graphics, minecraft.font, stats));
+        player.getCapability(CanopyCapabilities.SURVIVAL).ifPresent(stats -> draw(graphics, minecraft.font, player, stats));
     }
 
-    private static void draw(GuiGraphics graphics, Font font, SurvivalStats stats) {
-        Component warning = warning(stats);
-        int panelBottom = warning == null ? 48 : 60;
+    private static void draw(GuiGraphics graphics, Font font, Player player, SurvivalStats stats) {
+        boolean jungle = JungleClimate.inJungle(player);
+        Component warning = warning(stats, jungle);
+        // Вне джунглей показываем только рану — жара и сырость там не угроза.
+        boolean onlyWound = !jungle && stats.wetness() <= 0.05f;
+        if (onlyWound && stats.wound() == SurvivalStats.WOUND_NONE && warning == null) {
+            return;
+        }
+        int panelBottom = warning == null ? 32 : 44;
         graphics.fill(4, 4, 100, panelBottom, 0x70110E0A);
         RenderSystem.enableBlend();
-        drawMeter(graphics, 8, 8, 0, stats.thirst() / SurvivalStats.NEED_MAX, 0xFF3D7EC9, -1f, -1f);
-        drawMeter(graphics, 8, 18, 1, stats.temperature() / SurvivalStats.TEMP_MAX, temperatureColor(stats.temperature()), 0.43f, 0.57f);
-        drawMeter(graphics, 8, 28, 2, stats.wetness(), 0xFF4AA89A, -1f, -1f);
-        drawMeter(graphics, 8, 38, 3, stats.stamina() / SurvivalStats.NEED_MAX, 0xFFE0A04A, -1f, -1f);
+        drawMeter(graphics, 8, 8, 1, stats.temperature() / SurvivalStats.TEMP_MAX, temperatureColor(stats.temperature()), 0.43f, 0.57f);
+        drawMeter(graphics, 8, 18, 2, stats.wetness(), 0xFF4AA89A, -1f, -1f);
         RenderSystem.disableBlend();
         if (stats.wound() != SurvivalStats.WOUND_NONE) {
-            graphics.blit(ICONS, 88, 36, 36, 0, 9, 9, 45, 9);
+            graphics.blit(ICONS, 88, 14, 36, 0, 9, 9, 45, 9);
         }
         if (warning != null) {
-            graphics.drawString(font, warning, 8, 50, 0xFFF0C7A0, true);
+            graphics.drawString(font, warning, 8, 34, 0xFFF0C7A0, true);
         }
     }
 
@@ -78,7 +83,7 @@ public final class VitalsHud {
         return 0xFF7DCE6A;
     }
 
-    private static Component warning(SurvivalStats stats) {
+    private static Component warning(SurvivalStats stats, boolean jungle) {
         if (stats.wound() == SurvivalStats.WOUND_FEVER) {
             return Component.translatable("hud.canopy.fever");
         }
@@ -88,23 +93,14 @@ public final class VitalsHud {
         if (stats.wound() == SurvivalStats.WOUND_OPEN) {
             return Component.translatable(stats.woundDirty() ? "hud.canopy.wound_dirty" : "hud.canopy.wound");
         }
-        if (stats.thirst() <= 4f) {
-            return Component.translatable("hud.canopy.dehydrated");
-        }
-        if (stats.temperature() < 36f) {
-            return Component.translatable("hud.canopy.cold");
+        if (!jungle) {
+            return null;
         }
         if (stats.temperature() > 64f) {
             return Component.translatable("hud.canopy.hot");
         }
         if (stats.wetness() > 0.85f) {
             return Component.translatable("hud.canopy.soaked");
-        }
-        if (stats.hand() >= SurvivalStats.HAND_INJURED) {
-            return Component.translatable("hud.canopy.hand");
-        }
-        if (stats.stamina() <= 0.5f) {
-            return Component.translatable("hud.canopy.exhausted");
         }
         return null;
     }

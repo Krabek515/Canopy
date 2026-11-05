@@ -4,8 +4,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public final class CanopyConfig {
     public static final ForgeConfigSpec SPEC;
-    public static final ForgeConfigSpec.DoubleValue THIRST_MINUTES;
-    public static final ForgeConfigSpec.BooleanValue BLACKOUT;
     public static final ForgeConfigSpec.DoubleValue WOUND_MINUTES;
     public static final ForgeConfigSpec.DoubleValue DOWNPOUR_MINUTES;
     public static final ForgeConfigSpec.DoubleValue EVENT_COOLDOWN_MINUTES;
@@ -15,13 +13,7 @@ public final class CanopyConfig {
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        builder.comment("Настройка тела. Сложность мира умножает эти числа, но не выключает механики.").push("body");
-        THIRST_MINUTES = builder
-                .comment("Сколько спокойных минут на сложности «Нормально» уходит, чтобы жажда упала с полной до нуля.")
-                .defineInRange("thirstMinutesToEmpty", 12.0, 1.0, 120.0);
-        BLACKOUT = builder
-                .comment("Смертельный урон превращается в обморок. На «Сложно» игрока не уносят к точке возрождения.")
-                .define("blackout", true);
+        builder.comment("Джунглевые опасности. Сложность мира умножает эти числа, но не выключает механики.").push("body");
         WOUND_MINUTES = builder
                 .comment("Сколько минут грязная открытая рана идёт до воспаления, и сколько ещё до лихорадки. Одинаково на всех сложностях.")
                 .defineInRange("woundMinutesUntended", 10.0, 1.0, 60.0);

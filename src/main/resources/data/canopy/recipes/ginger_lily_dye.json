@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [ { "item": "canopy:ginger_lily" } ],
+  "result": { "item": "minecraft:white_dye", "count": 2 }
+}

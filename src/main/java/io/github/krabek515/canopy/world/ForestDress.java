@@ -46,6 +46,26 @@ public final class ForestDress {
                     if (rubberHere(chunk, pos, state, x, z, biome)) {
                         chunk.setBlockState(pos, io.github.krabek515.canopy.block.CanopyBlocks.RUBBER_KNOT.get().defaultBlockState(), false);
                     }
+                    // Банановая гроздь висит под кроной влажного леса — уже спелая.
+                    if (state.isAir() && (biome.equals("lowland") || biome.equals("flooded")) && mix(x, y, z) % 57 == 0) {
+                        pos.set(x, y + 1, z);
+                        if (chunk.getBlockState(pos).is(Blocks.JUNGLE_LEAVES)) {
+                            pos.set(x, y, z);
+                            chunk.setBlockState(pos, io.github.krabek515.canopy.block.CanopyBlocks.BANANA_BUNCH.get()
+                                    .defaultBlockState().setValue(io.github.krabek515.canopy.block.BananaBunchBlock.AGE, 2), false);
+                            pos.set(x, y, z);
+                        }
+                        pos.set(x, y, z);
+                    }
+                    // Орхидея-эпифит на стволах и мхе.
+                    if (state.isAir() && mix(x + 11, y, z) % 43 == 0) {
+                        pos.set(x, y - 1, z);
+                        BlockState under = chunk.getBlockState(pos);
+                        pos.set(x, y, z);
+                        if (under.is(net.minecraft.tags.BlockTags.LOGS) || under.is(Blocks.MOSS_BLOCK)) {
+                            chunk.setBlockState(pos, io.github.krabek515.canopy.block.CanopyBlocks.ORCHID.get().defaultBlockState(), false);
+                        }
+                    }
                 }
                 soil(chunk, pos, x, top - 1, z, biome);
                 if (biome.equals("canyon")) {

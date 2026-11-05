@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "canopy:item/hammock"
-  }
+  "parent": "canopy:block/hammock_head"
 }

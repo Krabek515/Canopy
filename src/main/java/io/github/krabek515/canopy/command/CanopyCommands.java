@@ -32,11 +32,8 @@ public final class CanopyCommands {
     public static void register(RegisterCommandsEvent event) {
         event.getDispatcher().register(Commands.literal("canopy")
                 .requires(source -> source.hasPermission(2))
-                .then(stat("thirst", 0f, SurvivalStats.NEED_MAX, SurvivalStats::setThirst))
                 .then(stat("temperature", 0f, SurvivalStats.TEMP_MAX, SurvivalStats::setTemperature))
                 .then(stat("wetness", 0f, 1f, SurvivalStats::setWetness))
-                .then(stat("stamina", 0f, SurvivalStats.NEED_MAX, SurvivalStats::setStamina))
-                .then(stat("hand", 0f, 1f, SurvivalStats::setHand))
                 .then(wound())
                 .then(Commands.literal("census").executes(context -> {
                     net.minecraft.server.level.ServerLevel level = context.getSource().getLevel();

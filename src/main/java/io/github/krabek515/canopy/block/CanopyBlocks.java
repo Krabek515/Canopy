@@ -102,6 +102,9 @@ public final class CanopyBlocks {
     public static final RegistryObject<Block> GINGER_LILY = BLOCKS.register("ginger_lily", () -> new TaroBlock(plant(MapColor.SNOW)));
     public static final RegistryObject<Block> BROMELIAD = BLOCKS.register("bromeliad", () -> new BromeliadBlock(plant(MapColor.PLANT)));
     public static final RegistryObject<Block> LOG_FUNGUS = BLOCKS.register("log_fungus", () -> new LogFungusBlock(plant(MapColor.COLOR_ORANGE)));
+    public static final RegistryObject<Block> ORCHID = BLOCKS.register("orchid", () -> new OrchidBlock(plant(MapColor.COLOR_MAGENTA).randomTicks()));
+    public static final RegistryObject<Block> BANANA_BUNCH = BLOCKS.register("banana_bunch", () -> new BananaBunchBlock(
+            plant(MapColor.COLOR_YELLOW).noCollission().offsetType(BlockBehaviour.OffsetType.NONE).randomTicks()));
     public static final RegistryObject<Block> WATER_LIANA = BLOCKS.register("water_liana", () -> new LianaBlock(
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.PLANT)

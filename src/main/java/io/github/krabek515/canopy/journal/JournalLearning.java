@@ -208,6 +208,12 @@ public final class JournalLearning {
             if (holds(player, CanopyItems.LOG_FUNGUS) || near(player, CanopyBlocks.LOG_FUNGUS.get())) {
                 journal.learn(Journal.PLANT_FUNGUS);
             }
+            if (holds(player, CanopyItems.BANANA) || near(player, CanopyBlocks.BANANA_BUNCH.get())) {
+                journal.learn("plant_banana");
+            }
+            if (holds(player, CanopyItems.ORCHID) || near(player, CanopyBlocks.ORCHID.get())) {
+                journal.learn("plant_orchid");
+            }
             if (holds(player, CanopyItems.RESPIRATOR)) {
                 journal.learn(Journal.RESPIRATOR);
             }

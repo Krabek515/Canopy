@@ -1,7 +1,6 @@
 package io.github.krabek515.canopy.event;
 
 import io.github.krabek515.canopy.Canopy;
-import io.github.krabek515.canopy.body.Blackout;
 import io.github.krabek515.canopy.body.BodySimulation;
 import io.github.krabek515.canopy.body.FoodSpoilage;
 import io.github.krabek515.canopy.body.HandWork;
@@ -24,9 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ChunkDataEvent;
@@ -42,6 +39,11 @@ public final class SurvivalEvents {
 
     @SubscribeEvent
     public static void onChunkLoad(ChunkDataEvent.Load event) {
+        // ProtoChunk ещё десериализуется — биомов в нём нет, getNoiseBiome упадёт.
+        // Свежие чанки одевает UndergrowthFeature на генерации; здесь доодеваем только старые полные чанки.
+        if (!(event.getChunk() instanceof net.minecraft.world.level.chunk.LevelChunk)) {
+            return;
+        }
         long key = event.getChunk().getPos().toLong();
         if (event.getData().getInt("CanopyDress") >= ForestDress.VERSION) {
             DRESSED.add(key);
@@ -96,7 +98,6 @@ public final class SurvivalEvents {
                 BodySimulation.tickSecond(player, stats);
                 FoodSpoilage.tickSecond(player, stats);
             }
-            BodySimulation.tickStamina(player, stats);
             if (player.tickCount % 5 == 0 && stats.isDirty()) {
                 stats.clearDirty();
                 CanopyNetwork.send(player);
@@ -131,43 +132,10 @@ public final class SurvivalEvents {
     }
 
     @SubscribeEvent
-    public static void onHurt(LivingHurtEvent event) {
-        if (event.getSource().getEntity() instanceof ServerPlayer attacker && !attacker.isCreative() && !attacker.isSpectator()) {
-            attacker.getCapability(CanopyCapabilities.SURVIVAL).ifPresent(stats -> {
-                if (stats.hand() >= SurvivalStats.HAND_INJURED) {
-                    event.setAmount(event.getAmount() * 0.65f);
-                }
-            });
-        }
-        if (!(event.getEntity() instanceof ServerPlayer player) || Blackout.unavoidable(event.getSource())) {
-            return;
-        }
-        player.getCapability(CanopyCapabilities.SURVIVAL).ifPresent(stats -> {
-            if (stats.isRecovering(player.level().getGameTime())) {
-                event.setCanceled(true);
-            }
-        });
-    }
-
-    @SubscribeEvent
     public static void onDrops(LivingDropsEvent event) {
         if (event.getEntity() instanceof ServerPlayer) {
             event.getDrops().removeIf(dropped -> dropped.getItem().is(CanopyItems.DIARY.get()));
         }
-    }
-
-    @SubscribeEvent
-    public static void onDeath(LivingDeathEvent event) {
-        if (!(event.getEntity() instanceof ServerPlayer player) || Blackout.unavoidable(event.getSource())) {
-            return;
-        }
-        if (!CanopyConfig.BLACKOUT.get()) {
-            return;
-        }
-        player.getCapability(CanopyCapabilities.SURVIVAL).ifPresent(stats -> {
-            event.setCanceled(true);
-            Blackout.wake(player, stats);
-        });
     }
 
     @SubscribeEvent

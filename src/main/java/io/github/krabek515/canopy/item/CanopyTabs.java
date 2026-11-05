@@ -75,6 +75,9 @@ public final class CanopyTabs {
                 output.accept(CanopyBlocks.BROMELIAD.get());
                 output.accept(CanopyBlocks.LOG_FUNGUS.get());
                 output.accept(CanopyBlocks.WATER_LIANA.get());
+                output.accept(CanopyItems.ORCHID.get());
+                output.accept(CanopyItems.BANANA.get());
+                output.accept(CanopyItems.BANANA_BUNCH.get());
             })
             .build());
 

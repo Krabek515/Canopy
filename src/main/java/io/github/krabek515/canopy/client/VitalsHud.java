@@ -1,11 +1,14 @@
 package io.github.krabek515.canopy.client;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import io.github.krabek515.canopy.Canopy;
 import io.github.krabek515.canopy.capability.CanopyCapabilities;
 import io.github.krabek515.canopy.capability.SurvivalStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -13,6 +16,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public final class VitalsHud {
     public static final IGuiOverlay OVERLAY = VitalsHud::render;
+    private static final ResourceLocation ICONS = ResourceLocation.fromNamespaceAndPath(Canopy.MOD_ID, "textures/hud/icons.png");
 
     private VitalsHud() {
     }
@@ -31,29 +35,35 @@ public final class VitalsHud {
 
     private static void draw(GuiGraphics graphics, Font font, SurvivalStats stats) {
         Component warning = warning(stats);
-        int panelBottom = warning == null ? 58 : 72;
-        graphics.fill(4, 4, 156, panelBottom, 0x70110E0A);
-        drawMeter(graphics, font, 8, 8, "hud.canopy.thirst", stats.thirst(), SurvivalStats.NEED_MAX, 0xFF3D7EC9, false);
-        drawMeter(graphics, font, 8, 20, "hud.canopy.temperature", stats.temperature(), SurvivalStats.TEMP_MAX, temperatureColor(stats.temperature()), true);
-        drawMeter(graphics, font, 8, 32, "hud.canopy.wetness", stats.wetness(), 1f, 0xFF4AA89A, false);
-        drawMeter(graphics, font, 8, 44, "hud.canopy.stamina", stats.stamina(), SurvivalStats.NEED_MAX, 0xFFE0A04A, false);
+        int panelBottom = warning == null ? 48 : 60;
+        graphics.fill(4, 4, 100, panelBottom, 0x70110E0A);
+        RenderSystem.enableBlend();
+        drawMeter(graphics, 8, 8, 0, stats.thirst() / SurvivalStats.NEED_MAX, 0xFF3D7EC9, -1f, -1f);
+        drawMeter(graphics, 8, 18, 1, stats.temperature() / SurvivalStats.TEMP_MAX, temperatureColor(stats.temperature()), 0.43f, 0.57f);
+        drawMeter(graphics, 8, 28, 2, stats.wetness(), 0xFF4AA89A, -1f, -1f);
+        drawMeter(graphics, 8, 38, 3, stats.stamina() / SurvivalStats.NEED_MAX, 0xFFE0A04A, -1f, -1f);
+        RenderSystem.disableBlend();
+        if (stats.wound() != SurvivalStats.WOUND_NONE) {
+            graphics.blit(ICONS, 88, 36, 36, 0, 9, 9, 45, 9);
+        }
         if (warning != null) {
-            graphics.drawString(font, warning, 8, 58, 0xFFF0C7A0, true);
+            graphics.drawString(font, warning, 8, 50, 0xFFF0C7A0, true);
         }
     }
 
-    private static void drawMeter(GuiGraphics graphics, Font font, int x, int y, String label, float value, float max, int color, boolean comfortMark) {
-        graphics.drawString(font, Component.translatable(label), x, y, 0xFFF3EBDD, true);
-        int barX = x + 58;
-        int barY = y + 1;
-        int barWidth = 80;
-        int barHeight = 6;
+    /** Иконка слева, полоска справа. comfortLow/High — зелёная метка комфорта для температуры. */
+    private static void drawMeter(GuiGraphics graphics, int x, int y, int icon, float fill01, int color, float comfortLow, float comfortHigh) {
+        graphics.blit(ICONS, x, y, icon * 9, 0, 9, 9, 45, 9);
+        int barX = x + 11;
+        int barY = y + 2;
+        int barWidth = 74;
+        int barHeight = 5;
         graphics.fill(barX, barY, barX + barWidth, barY + barHeight, 0xFF1A1612);
-        int fill = Math.round(barWidth * Mth.clamp(value / max, 0f, 1f));
+        int fill = Math.round(barWidth * Mth.clamp(fill01, 0f, 1f));
         graphics.fill(barX, barY, barX + fill, barY + barHeight, color);
-        if (comfortMark) {
-            int start = barX + Math.round(barWidth * 0.43f);
-            int end = barX + Math.round(barWidth * 0.57f);
+        if (comfortLow >= 0f) {
+            int start = barX + Math.round(barWidth * comfortLow);
+            int end = barX + Math.round(barWidth * comfortHigh);
             graphics.fill(start, barY + barHeight, end, barY + barHeight + 1, 0xFFD7E7C8);
         }
     }

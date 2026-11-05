@@ -11,6 +11,172 @@ final class Blocks {
         plants();
         forest();
         surfaces();
+        camp();
+        hud();
+    }
+
+    /** Лагерь: каучуковый нарост, глиняная печь, настил на сваях, полотно гамака. */
+    static void camp() throws IOException {
+        Random rng = new Random(31);
+
+        // Ствол гевеи с наростом: тёплая вертикальная кора, выпуклый янтарный сучок.
+        int[] bark = {Art.c('W'), Art.c('w'), Art.c('W'), Art.c('d'), Art.rgb(0xA9, 0x7A, 0x4A)};
+        BufferedImage knot = Art.canvas(16, 16);
+        for (int x = 0; x < 16; x++) {
+            int streak = Art.c('d');
+            for (int y = 0; y < 16; y++) {
+                knot.setRGB(x, y, bark[(x * 7 + y / 3) % bark.length]);
+            }
+        }
+        // вертикальные трещины
+        for (int x = 2; x < 16; x += 5) {
+            for (int y = 0; y < 16; y++) if (rng.nextInt(4) > 0) Art.put(knot, x, y, Art.c('d'));
+        }
+        // нарост по центру
+        int amber = Art.rgb(0xD8, 0x9A, 0x4A), amberD = Art.rgb(0x9A, 0x62, 0x28), amberL = Art.rgb(0xF0, 0xC8, 0x80);
+        for (int y = 5; y <= 11; y++) {
+            for (int x = 5; x <= 11; x++) {
+                int dx = x - 8, dy = y - 8;
+                int rr = dx * dx + dy * dy;
+                if (rr <= 11) {
+                    knot.setRGB(x, y, rr <= 3 ? amberL : rr <= 7 ? amber : amberD);
+                }
+            }
+        }
+        Art.write("block/rubber_knot_side", knot);
+
+        // Надрезанный: на наросте косая зарубка, из неё молочная капля.
+        BufferedImage tapped = Art.canvas(16, 16);
+        java.awt.Graphics2D g2 = tapped.createGraphics();
+        g2.drawImage(knot, 0, 0, null);
+        g2.dispose();
+        int milk = Art.rgb(0xEA, 0xE2, 0xCE);
+        for (int k = -2; k <= 2; k++) Art.put(tapped, 8 + k, 8 + k / 2, Art.c('k'));
+        Art.put(tapped, 8, 10, milk); Art.put(tapped, 8, 11, milk); Art.put(tapped, 8, 13, milk);
+        Art.write("block/rubber_knot_tapped", tapped);
+
+        // Торец ствола: годичные кольца.
+        BufferedImage knotTop = Art.canvas(16, 16);
+        for (int y = 0; y < 16; y++) for (int x = 0; x < 16; x++) {
+            int dx = x - 8, dy = y - 8;
+            int r = (int) Math.sqrt(dx * dx + dy * dy);
+            knotTop.setRGB(x, y, r % 3 == 0 ? Art.c('w') : Art.c('W'));
+        }
+        Art.write("block/rubber_knot_top", knotTop);
+
+        // Глиняная печь: обожжённая глина терракотой, ободок темнее.
+        int[] clay = {Art.rgb(0xB0, 0x76, 0x52), Art.rgb(0xA4, 0x6A, 0x49), Art.rgb(0xBC, 0x82, 0x5E), Art.rgb(0x96, 0x5E, 0x40)};
+        BufferedImage oven = Art.canvas(16, 16);
+        Art.noise(oven, rng, 0, 0, 16, 16, clay, new int[]{4, 3, 2, 1});
+        for (int x = 0; x < 16; x++) { Art.put(oven, x, 0, Art.c('d')); Art.put(oven, x, 1, Art.rgb(0xC8, 0x8E, 0x66)); }
+        Art.write("block/clay_oven_side", oven);
+        BufferedImage ovenTop = Art.canvas(16, 16);
+        Art.noise(ovenTop, rng, 0, 0, 16, 16, clay, new int[]{3, 3, 2, 2});
+        Art.write("block/clay_oven_top", ovenTop);
+        BufferedImage inside = Art.canvas(16, 16);
+        Art.noise(inside, rng, 0, 0, 16, 16, new int[]{Art.rgb(0x2A, 0x1C, 0x14), Art.rgb(0x36, 0x26, 0x1C), Art.rgb(0x1E, 0x14, 0x0E)}, new int[]{4, 3, 2});
+        Art.write("block/clay_oven_inside", inside);
+        // Варево: густая коричневая масса с пузырями.
+        BufferedImage stew = Art.canvas(16, 16);
+        Art.noise(stew, rng, 0, 0, 16, 16, new int[]{Art.c('c'), Art.c('C'), Art.c('v'), Art.rgb(0xD8, 0xA0, 0x60)}, new int[]{5, 4, 2, 1});
+        for (int i = 0; i < 4; i++) Art.put(stew, rng.nextInt(14) + 1, rng.nextInt(14) + 1, Art.rgb(0xE8, 0xC0, 0x88));
+        Art.write("block/clay_oven_stew", stew);
+
+        // Настил: бамбуковые ламели поперёк, сваи — тёмные жерди.
+        BufferedImage deck = Art.canvas(16, 16);
+        for (int y = 0; y < 16; y++) for (int x = 0; x < 16; x++) {
+            int slat = x / 4;
+            deck.setRGB(x, y, x % 4 == 3 ? Art.c('n') : (y + slat) % 3 == 0 ? Art.c('B') : Art.c('b'));
+        }
+        Art.write("block/stilt_platform_top", deck);
+        BufferedImage legs = Art.canvas(16, 16);
+        for (int y = 0; y < 16; y++) for (int x = 0; x < 16; x++) {
+            legs.setRGB(x, y, x % 4 == 3 ? Art.c('N') : (y / 5 + x / 3) % 2 == 0 ? Art.c('n') : Art.c('b'));
+        }
+        Art.write("block/stilt_platform_legs", legs);
+
+        // Полотно гамака для BER: 64x64. Верхняя половина — плетение, нижняя строка — стропы.
+        BufferedImage sheet = Art.canvas(64, 64);
+        int light = Art.rgb(0x8F, 0xA5, 0x5A), mid = Art.rgb(0x7A, 0x8F, 0x48), dark = Art.rgb(0x62, 0x74, 0x36);
+        for (int y = 0; y < 20; y++) {
+            for (int x = 0; x < 48; x++) {
+                boolean over = ((x / 2) + (y / 2)) % 2 == 0;
+                int base = over ? light : mid;
+                if ((over && y % 2 == 1) || (!over && x % 2 == 1)) base = Art.mix(base, dark, 0.35f);
+                sheet.setRGB(x, y, base);
+            }
+        }
+        // стропы в районе (0..1, 32..35) и (8..9, 32..35)
+        for (int y = 32; y < 36; y++) for (int x = 0; x < 16; x++) sheet.setRGB(x, y, Art.c('u'));
+        Art.write("entity/hammock", sheet);
+    }
+
+    /** Иконки показателей для HUD, 9x9. */
+    static void hud() throws IOException {
+        // Капля: жажда.
+        Art.sprite("hud/thirst", 9, 9,
+                "....k....",
+                "...kAk...",
+                "..kAAAk..",
+                "..kAAAk..",
+                ".kAaAAAk.",
+                ".kAaAAAk.",
+                ".kAAAAAk.",
+                "..kAAAk..",
+                "...kkk...");
+        // Столбик: температура.
+        Art.sprite("hud/temperature", 9, 9,
+                "...kk....",
+                "..kZZk...",
+                "..kZZk...",
+                "..kZZk...",
+                "..kZZk...",
+                ".kZZZZk..",
+                ".kZZZZk..",
+                "..kkkk...",
+                ".........");
+        // Брызги: сырость.
+        Art.sprite("hud/wetness", 9, 9,
+                "....k....",
+                "...kTk...",
+                "..kTTk...",
+                ".....k...",
+                ".k..kTk..",
+                "kTk.kTTk.",
+                ".kTk..k..",
+                "..k......",
+                ".........");
+        // Молния: силы.
+        Art.sprite("hud/stamina", 9, 9,
+                "....kkk..",
+                "...kYYk..",
+                "..kYYk...",
+                "..kYYkk..",
+                ".kkYYk...",
+                "..kYYk...",
+                "..kYk....",
+                "..kk.....",
+                ".........");
+        // Рана: капля крови.
+        Art.sprite("hud/wound", 9, 9,
+                "....k....",
+                "...krk...",
+                "..krRk..",
+                "..krRk..",
+                ".krRRRk.",
+                ".kRRRRk.",
+                ".kRRRqk.",
+                "..kkkk..",
+                ".........");
+
+        // Лист в линейку: все иконки 9x9 подряд в одну текстуру 45x9.
+        BufferedImage icons = Art.canvas(45, 9);
+        String[] files = {"thirst", "temperature", "wetness", "stamina", "wound"};
+        for (int i = 0; i < files.length; i++) {
+            BufferedImage src = javax.imageio.ImageIO.read(new java.io.File(Art.OUT + "hud/" + files[i] + ".png"));
+            icons.createGraphics().drawImage(src, i * 9, 0, null);
+        }
+        Art.write("hud/icons", icons);
     }
 
     static void plants() throws IOException {

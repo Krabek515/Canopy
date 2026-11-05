@@ -50,6 +50,8 @@ public final class JournalLearning {
             note(player, Journal.CRAFT_COOKED);
         } else if (eaten.is(CanopyItems.COOKED_MEAT.get())) {
             note(player, Journal.CRAFT_COOKED);
+        } else if (eaten.is(CanopyItems.STEW.get())) {
+            note(player, Journal.CRAFT_STEW);
         }
     }
 
@@ -81,6 +83,11 @@ public final class JournalLearning {
             note(player, Journal.RESPIRATOR);
         } else if (crafted.is(CanopyItems.BAD_BREW.get())) {
             note(player, Journal.BAD_BREW);
+        } else if (crafted.is(CanopyItems.BONE_MACHETE.get())) {
+            note(player, Journal.CRAFT_BONE);
+        } else if (crafted.getItem() instanceof io.github.krabek515.canopy.item.ClothingItem
+                && io.github.krabek515.canopy.item.RubberSapItem.waxed(crafted)) {
+            note(player, Journal.CRAFT_RUBBER);
         }
     }
 
@@ -209,6 +216,15 @@ public final class JournalLearning {
             }
             if (holds(player, CanopyItems.BAD_BREW)) {
                 journal.learn(Journal.BAD_BREW);
+            }
+            if (holds(player, CanopyItems.BONE_MACHETE)) {
+                journal.learn(Journal.CRAFT_BONE);
+            }
+            if (holds(player, CanopyItems.RUBBER_SAP) || near(player, CanopyBlocks.RUBBER_KNOT.get())) {
+                journal.learn(Journal.CRAFT_RUBBER);
+            }
+            if (holds(player, CanopyItems.HAMMOCK) || holds(player, CanopyItems.STILT_PLATFORM)) {
+                journal.learn(Journal.CAMP_BUILT);
             }
         });
     }

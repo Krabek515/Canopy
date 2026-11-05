@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "S",
+    "B"
+  ],
+  "key": {
+    "S": {
+      "item": "canopy:bone_shard"
+    },
+    "B": {
+      "item": "minecraft:bamboo"
+    }
+  },
+  "result": {
+    "item": "canopy:bone_machete"
+  }
+}

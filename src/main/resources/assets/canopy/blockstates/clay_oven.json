@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "ready=false": {
+      "model": "canopy:block/clay_oven"
+    },
+    "ready=true": {
+      "model": "canopy:block/clay_oven_ready"
+    }
+  }
+}

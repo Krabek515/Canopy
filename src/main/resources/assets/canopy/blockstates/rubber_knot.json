@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "axis=x,tapped=false": {
+      "model": "canopy:block/rubber_knot",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,tapped=true": {
+      "model": "canopy:block/rubber_knot_tapped",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,tapped=false": {
+      "model": "canopy:block/rubber_knot"
+    },
+    "axis=y,tapped=true": {
+      "model": "canopy:block/rubber_knot_tapped"
+    },
+    "axis=z,tapped=false": {
+      "model": "canopy:block/rubber_knot",
+      "x": 90
+    },
+    "axis=z,tapped=true": {
+      "model": "canopy:block/rubber_knot_tapped",
+      "x": 90
+    }
+  }
+}

@@ -32,7 +32,13 @@ public final class ClientModEvents {
         }
 
         @SubscribeEvent
+        public static void layers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+            event.registerLayerDefinition(HammockRenderer.LAYER, HammockRenderer::mesh);
+        }
+
+        @SubscribeEvent
         public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(io.github.krabek515.canopy.block.CanopyBlockEntities.HAMMOCK.get(), HammockRenderer::new);
             event.registerEntityRenderer(CanopyEntities.JAGUAR.get(), ctx -> new BeastRenderer<>(ctx, "jaguar", 0.6f));
             event.registerEntityRenderer(CanopyEntities.AGOUTI.get(), ctx -> new BeastRenderer<>(ctx, "agouti", 0.3f));
             event.registerEntityRenderer(CanopyEntities.SNAKE.get(), ctx -> new BeastRenderer<>(ctx, "snake", 0.35f));

@@ -111,29 +111,27 @@ public final class CanopyBlocks {
                     .pushReaction(PushReaction.DESTROY)
     ));
 
-    public static final RegistryObject<Block> RUBBER_KNOT = BLOCKS.register("rubber_knot", () -> new Block(
+    public static final RegistryObject<Block> RUBBER_KNOT = BLOCKS.register("rubber_knot", () -> new RubberKnotBlock(
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.WOOD)
-                    .strength(0.8f)
+                    .strength(1.6f)
                     .sound(SoundType.WOOD)
-                    .noOcclusion()
-                    .pushReaction(PushReaction.DESTROY)
     ));
-    public static final RegistryObject<Block> CLAY_OVEN = BLOCKS.register("clay_oven", () -> new Block(
+    public static final RegistryObject<Block> CLAY_OVEN = BLOCKS.register("clay_oven", () -> new ClayOvenBlock(
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_BROWN)
                     .strength(1.2f)
                     .sound(SoundType.MUD_BRICKS)
-                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
     ));
-    public static final RegistryObject<Block> STILT_PLATFORM = BLOCKS.register("stilt_platform", () -> new Block(
+    public static final RegistryObject<Block> STILT_PLATFORM = BLOCKS.register("stilt_platform", () -> new StiltPlatformBlock(
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.WOOD)
                     .strength(0.8f)
                     .sound(SoundType.BAMBOO)
                     .noOcclusion()
     ));
-    public static final RegistryObject<Block> HAMMOCK = BLOCKS.register("hammock", () -> new Block(
+    public static final RegistryObject<Block> HAMMOCK = BLOCKS.register("hammock", () -> new HammockBlock(
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.WOOL)
                     .strength(0.4f)

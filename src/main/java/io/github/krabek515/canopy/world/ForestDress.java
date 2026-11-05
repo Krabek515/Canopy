@@ -13,7 +13,7 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public final class ForestDress {
-    public static final int VERSION = 3;
+    public static final int VERSION = 4;
 
     private ForestDress() {
     }
@@ -40,6 +40,11 @@ public final class ForestDress {
                     }
                     if (state.is(Blocks.COCOA) || looseVine(chunk, pos, state)) {
                         chunk.setBlockState(pos, Blocks.AIR.defaultBlockState(), false);
+                        continue;
+                    }
+                    // Гевея: редкий каучуковый нарост низко на стволе влажного леса.
+                    if (rubberHere(chunk, pos, state, x, z, biome)) {
+                        chunk.setBlockState(pos, io.github.krabek515.canopy.block.CanopyBlocks.RUBBER_KNOT.get().defaultBlockState(), false);
                     }
                 }
                 soil(chunk, pos, x, top - 1, z, biome);
@@ -138,6 +143,35 @@ public final class ForestDress {
         if (floor != null) {
             chunk.setBlockState(pos, floor, false);
         }
+    }
+
+    /**
+     * Нарост сидит у самой земли: вертикальный ствол, а в трёх блоках под ним уже грунт.
+     * Примерно один нарост на сорок стволовых брёвен.
+     */
+    private static boolean rubberHere(ChunkAccess chunk, BlockPos.MutableBlockPos pos, BlockState state, int x, int z, String biome) {
+        if (!state.is(Blocks.JUNGLE_LOG) || !state.hasProperty(RotatedPillarBlock.AXIS)
+                || state.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y) {
+            return false;
+        }
+        if (!(biome.equals("lowland") || biome.equals("flooded") || biome.equals("bamboo_thicket"))) {
+            return false;
+        }
+        if (mix(x, pos.getY(), z) % 41 != 0) {
+            return false;
+        }
+        for (int dy = 1; dy <= 3; dy++) {
+            BlockState below = chunk.getBlockState(pos.set(x, pos.getY() - dy, z));
+            pos.set(x, pos.getY() + dy, z);
+            if (below.is(BlockTags.DIRT) || below.is(Blocks.MUD) || below.is(Blocks.CLAY) || below.is(Blocks.MOSS_BLOCK)
+                    || below.is(Blocks.PODZOL) || below.is(Blocks.ROOTED_DIRT) || below.is(Blocks.COARSE_DIRT)) {
+                return true;
+            }
+            if (!below.is(Blocks.JUNGLE_LOG)) {
+                return false;
+            }
+        }
+        return false;
     }
 
     private static boolean looseVine(ChunkAccess chunk, BlockPos pos, BlockState state) {

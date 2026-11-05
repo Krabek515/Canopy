@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "R R",
+    "SSS"
+  ],
+  "key": {
+    "R": {
+      "item": "canopy:rope"
+    },
+    "S": {
+      "item": "canopy:silk"
+    }
+  },
+  "result": {
+    "item": "canopy:hammock"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north,part=head,occupied=false": { "model": "canopy:block/empty" },
+    "facing=north,part=head,occupied=true": { "model": "canopy:block/empty" },
+    "facing=north,part=foot,occupied=false": { "model": "canopy:block/empty" },
+    "facing=north,part=foot,occupied=true": { "model": "canopy:block/empty" },
+    "facing=east,part=head,occupied=false": { "model": "canopy:block/empty" },
+    "facing=east,part=head,occupied=true": { "model": "canopy:block/empty" },
+    "facing=east,part=foot,occupied=false": { "model": "canopy:block/empty" },
+    "facing=east,part=foot,occupied=true": { "model": "canopy:block/empty" },
+    "facing=south,part=head,occupied=false": { "model": "canopy:block/empty" },
+    "facing=south,part=head,occupied=true": { "model": "canopy:block/empty" },
+    "facing=south,part=foot,occupied=false": { "model": "canopy:block/empty" },
+    "facing=south,part=foot,occupied=true": { "model": "canopy:block/empty" },
+    "facing=west,part=head,occupied=false": { "model": "canopy:block/empty" },
+    "facing=west,part=head,occupied=true": { "model": "canopy:block/empty" },
+    "facing=west,part=foot,occupied=false": { "model": "canopy:block/empty" },
+    "facing=west,part=foot,occupied=true": { "model": "canopy:block/empty" }
+  }
+}

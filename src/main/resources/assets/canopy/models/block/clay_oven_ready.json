@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "side": "canopy:block/clay_oven_side",
+    "top": "canopy:block/clay_oven_top",
+    "inside": "canopy:block/clay_oven_stew",
+    "particle": "canopy:block/clay_oven_side"
+  },
+  "elements": [
+    {
+      "name": "belly",
+      "from": [2, 0, 2],
+      "to": [14, 11, 14],
+      "faces": {
+        "north": {"texture": "#side", "uv": [1, 5, 15, 16]},
+        "south": {"texture": "#side", "uv": [1, 5, 15, 16]},
+        "east": {"texture": "#side", "uv": [1, 5, 15, 16]},
+        "west": {"texture": "#side", "uv": [1, 5, 15, 16]},
+        "down": {"texture": "#side", "uv": [1, 0, 15, 12]}
+      }
+    },
+    {
+      "name": "rim",
+      "from": [1, 11, 1],
+      "to": [15, 14, 15],
+      "faces": {
+        "north": {"texture": "#side", "uv": [0, 2, 16, 5]},
+        "south": {"texture": "#side", "uv": [0, 2, 16, 5]},
+        "east": {"texture": "#side", "uv": [0, 2, 16, 5]},
+        "west": {"texture": "#side", "uv": [0, 2, 16, 5]},
+        "up": {"texture": "#top"},
+        "down": {"texture": "#side", "uv": [0, 0, 16, 14]}
+      }
+    },
+    {
+      "name": "stew",
+      "from": [3, 13.5, 3],
+      "to": [13, 14.6, 13],
+      "faces": {
+        "up": {"texture": "#inside"},
+        "down": {"texture": "#inside"}
+      }
+    }
+  ]
+}

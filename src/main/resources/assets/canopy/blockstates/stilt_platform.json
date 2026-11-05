@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "canopy:block/stilt_platform"
+    },
+    "waterlogged=true": {
+      "model": "canopy:block/stilt_platform"
+    }
+  }
+}

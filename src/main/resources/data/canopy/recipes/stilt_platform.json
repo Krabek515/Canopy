@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "R R"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:bamboo"
+    },
+    "R": {
+      "item": "canopy:rope"
+    }
+  },
+  "result": {
+    "item": "canopy:stilt_platform",
+    "count": 3
+  }
+}

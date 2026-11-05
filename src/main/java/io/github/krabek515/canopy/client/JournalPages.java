@@ -239,6 +239,12 @@ public final class JournalPages {
         if (journal.knows(Journal.GAS)) {
             keys.add("journal.canopy.places.gas");
         }
+        if (journal.knows(Journal.WET_SEASON)) {
+            keys.add("journal.canopy.places.wet_season");
+        }
+        if (journal.knows(Journal.CAMP_BUILT)) {
+            keys.add("journal.canopy.places.camp_built");
+        }
         return keys;
     }
 
@@ -279,6 +285,15 @@ public final class JournalPages {
         }
         if (journal.knows(Journal.RESPIRATOR)) {
             keys.add("journal.canopy.craft.respirator");
+        }
+        if (journal.knows(Journal.CRAFT_BONE)) {
+            keys.add("journal.canopy.craft.bone");
+        }
+        if (journal.knows(Journal.CRAFT_RUBBER)) {
+            keys.add("journal.canopy.craft.rubber");
+        }
+        if (journal.knows(Journal.CRAFT_STEW)) {
+            keys.add("journal.canopy.craft.stew");
         }
         return keys;
     }

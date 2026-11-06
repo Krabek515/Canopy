@@ -312,8 +312,7 @@
   "journal.canopy.craft.rubber": "На гладких стволах у земли сидит нарост гевеи. Стамеской из него течёт млечный сок. Он не даёт одежде намокать.",
   "journal.canopy.craft.stew": "В глиняном горшке на огне корни и мясо превращаются в густую похлёбку. Одна миска — и день сыт.",
   "journal.canopy.places.wet_season": "Сезон мокрых дней: ливни приходят чаще и дольше, вода в каньоне поднимает тревогу вдвое чаще.",
-  "journal.canopy.places.camp_built": "Настил на сваях и гамак — лагерь. Спишь — и возвращаешься сюда. Реки и топи перестают быть стеной."
-,
+  "journal.canopy.places.camp_built": "Настил на сваях и гамак — лагерь. Спишь — и возвращаешься сюда. Реки и топи перестают быть стеной.",
   "journal.canopy.hover_tip": "Наведи на знак — журнал расскажет.",
   "journal.canopy.node.craft_flask": "Фляга",
   "journal.canopy.node.craft_flask.desc": "Бамбуковый ствол держит воду. Пей из реки, дождя, бромелий.",
@@ -450,8 +449,7 @@
   "journal.canopy.node.place_wet_season.hint": "Небо умеет менять нрав.",
   "journal.canopy.node.place_camp": "Лагерь экспедиции",
   "journal.canopy.node.place_camp.desc": "Чужие следы: товар в тростнике, гнилой настил. Разбирай — пригодится.",
-  "journal.canopy.node.place_camp.hint": "Здесь уже кто-то был."
-,
+  "journal.canopy.node.place_camp.hint": "Здесь уже кто-то был.",
   "journal.canopy.node.plant_banana": "Банановая гроздь",
   "journal.canopy.node.plant_banana.desc": "Под кроной наливаются гроздья. Спелая снимается рукой — быстрая сладкая еда.",
   "journal.canopy.node.plant_banana.hint": "Жёлтое висит под листвой.",
@@ -463,5 +461,8 @@
   "item.canopy.banana_bunch": "Банановая гроздь",
   "item.canopy.orchid": "Орхидея",
   "block.canopy.orchid": "Орхидея",
-  "block.canopy.banana_bunch": "Банановая гроздь"
+  "block.canopy.banana_bunch": "Банановая гроздь",
+  "command.canopy.help": "Canopy: locate — найти ближайшие джунгли; temperature/wetness/wound/census/downpour/raid/flood/bait/tree/vein/camp/gas — отладка (права 2). Быстрый поиск: /locate biome canopy:lowland",
+  "command.canopy.locate": "Ближайший биом Canopy: %s [%d, %d, %d]",
+  "command.canopy.locate_none": "Биомы Canopy не найдены в радиусе 6400 блоков"
 }

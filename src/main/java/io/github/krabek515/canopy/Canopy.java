@@ -31,6 +31,7 @@ public class Canopy {
         io.github.krabek515.canopy.item.CanopyRecipes.SERIALIZERS.register(modBus);
         io.github.krabek515.canopy.world.CanopyBiomeSource.SOURCES.register(modBus);
         CanopyEffects.EFFECTS.register(modBus);
+        io.github.krabek515.canopy.sound.CanopySounds.SOUNDS.register(modBus);
         CanopyTabs.TABS.register(modBus);
         modBus.addListener(this::commonSetup);
     }

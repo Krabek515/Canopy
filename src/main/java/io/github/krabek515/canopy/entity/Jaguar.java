@@ -8,6 +8,7 @@ import io.github.krabek515.canopy.body.HandWork;
 import io.github.krabek515.canopy.item.WornClothing;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
+import io.github.krabek515.canopy.sound.CanopySounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EntityType;
@@ -77,17 +78,17 @@ public class Jaguar extends PathfinderMob implements GeoEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.OCELOT_AMBIENT;
+        return CanopySounds.JAGUAR_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource source) {
-        return SoundEvents.OCELOT_HURT;
+        return CanopySounds.JAGUAR_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.OCELOT_DEATH;
+        return CanopySounds.JAGUAR_DEATH.get();
     }
 
     private static final class HuntGoal extends Goal {
@@ -161,7 +162,7 @@ public class Jaguar extends PathfinderMob implements GeoEntity {
             this.jaguar.setDeltaMovement(leap.x * 0.72, 0.38, leap.z * 0.72);
             this.jaguar.leapCooldown = 50;
             this.jaguar.playSound(SoundEvents.GRASS_STEP, 0.45f, 1.4f);
-            this.jaguar.playSound(SoundEvents.OCELOT_AMBIENT, 0.7f, 0.6f);
+            this.jaguar.playSound(CanopySounds.JAGUAR_AMBIENT.get(), 0.7f, 0.6f);
         }
     }
 

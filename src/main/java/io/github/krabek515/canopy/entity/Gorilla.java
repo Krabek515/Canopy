@@ -1,6 +1,7 @@
 package io.github.krabek515.canopy.entity;
 
 import net.minecraft.sounds.SoundEvent;
+import io.github.krabek515.canopy.sound.CanopySounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -67,7 +68,7 @@ public class Gorilla extends Beast {
         Player near = this.level().getNearestPlayer(this, 9);
         if (near != null && !near.isCreative() && !near.isSpectator() && this.getTarget() == null) {
             if (++this.warn % 60 == 0) {
-                this.playSound(SoundEvents.RAVAGER_AMBIENT, 0.5f, 1.4f);
+                this.playSound(CanopySounds.GORILLA_AMBIENT.get(), 0.5f, 1.4f);
             }
         } else {
             this.warn = 0;
@@ -93,12 +94,12 @@ public class Gorilla extends Beast {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.RAVAGER_HURT;
+        return CanopySounds.GORILLA_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.RAVAGER_DEATH;
+        return CanopySounds.GORILLA_DEATH.get();
     }
 
     @Override

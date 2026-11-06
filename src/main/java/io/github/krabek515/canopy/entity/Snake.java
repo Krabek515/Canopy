@@ -6,6 +6,7 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import io.github.krabek515.canopy.body.CanopyEffects;
 import net.minecraft.sounds.SoundEvent;
+import io.github.krabek515.canopy.sound.CanopySounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -63,17 +64,17 @@ public class Snake extends PathfinderMob implements GeoEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.SILVERFISH_AMBIENT;
+        return CanopySounds.SNAKE_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource source) {
-        return SoundEvents.SILVERFISH_HURT;
+        return CanopySounds.SNAKE_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SILVERFISH_DEATH;
+        return CanopySounds.SNAKE_DEATH.get();
     }
 
     @Override

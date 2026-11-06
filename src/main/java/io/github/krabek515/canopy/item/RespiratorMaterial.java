@@ -36,7 +36,7 @@ public enum RespiratorMaterial implements ArmorMaterial {
 
     @Override
     public String getName() {
-        return "leather";
+        return "respirator";
     }
 
     @Override

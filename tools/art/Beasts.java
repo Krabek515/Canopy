@@ -168,10 +168,13 @@ final class Beasts {
         // голова
         box(img, rng, 0, 0, 6, 5, 6, JAG_BASE, JAG_LIGHT, JAG_BELLY, 0.9f);
         rosettes(img, rng, 0, 0, 6, 5, 6, 6);
-        // морда (перед головы): глаза
-        int fx = 0 + 6, fy = 0 + 6; // перед: (u+d, v+d) = (6,6), размер 6x5
+        // чистая морда без розеток: передняя грань (u+d, v+d) = (6,6), размер 6x5
+        int fx = 0 + 6, fy = 0 + 6;
+        Art.fill(img, fx, fy, 6, 5, Art.shade(JAG_BASE, 1.05f));
+        Art.fill(img, fx, fy + 3, 6, 2, JAG_BELLY); // низ морды светлее
         eye(img, fx + 1, fy + 1, JAG_LIGHT);
         eye(img, fx + 4, fy + 1, JAG_LIGHT);
+        Art.fill(img, fx + 2, fy + 4, 2, 1, JAG_NOSE); // нос внизу по центру
         // нос 4x2x2 at (24,0): перед (26,2) 4x2
         box(img, rng, 24, 0, 4, 2, 2, JAG_BELLY, JAG_BELLY, JAG_BELLY, 0.95f);
         Art.fill(img, 27, 2, 2, 1, JAG_NOSE);

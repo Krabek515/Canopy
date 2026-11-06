@@ -105,6 +105,7 @@ public final class Art {
         Blocks.all();
         Gui.all();
         Beasts.all();
+        Armor.all();
         contactSheet();
         entitySheet();
         System.out.println("done");

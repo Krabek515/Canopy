@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import io.github.krabek515.canopy.sound.CanopySounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -61,7 +62,7 @@ public final class MonkeyRaid {
         player.getPersistentData().putLong(NEXT, now + cooldownTicks());
         player.displayClientMessage(Component.translatable("message.canopy.raid"), true);
         JournalLearning.note(player, Journal.MONKEY);
-        level.playSound(null, player.blockPosition(), SoundEvents.FOX_AMBIENT, SoundSource.NEUTRAL, 0.8f, 1.5f);
+        level.playSound(null, player.blockPosition(), CanopySounds.MONKEY_AMBIENT.get(), SoundSource.NEUTRAL, 0.8f, 1.5f);
         for (int i = 0; i < 3; i++) {
             spawn(level, player, now, i);
         }

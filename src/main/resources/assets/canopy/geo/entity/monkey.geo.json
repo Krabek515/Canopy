@@ -56,14 +56,14 @@
           "name": "tail",
           "parent": "body",
           "pivot": [0, 6, 2],
-          "rotation": [-60, 0, 0],
+          "rotation": [25, 0, 0],
           "cubes": [ { "origin": [-1, 5, 2], "size": [2, 2, 8], "uv": [16, 12] } ]
         },
         {
           "name": "tail_tip",
           "parent": "tail",
           "pivot": [0, 6, 10],
-          "rotation": [-50, 0, 0],
+          "rotation": [-40, 0, 0],
           "cubes": [ { "origin": [-1, 5, 10], "size": [2, 2, 6], "uv": [36, 12] } ]
         }
       ]

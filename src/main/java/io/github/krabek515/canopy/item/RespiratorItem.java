@@ -1,6 +1,8 @@
 package io.github.krabek515.canopy.item;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.DyeableArmorItem;
 import net.minecraft.world.item.ItemStack;
@@ -18,6 +20,11 @@ public class RespiratorItem extends DyeableArmorItem {
     @Override
     public int getColor(ItemStack stack) {
         return 0x4A4E46;
+    }
+
+    @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+        return "canopy:textures/models/armor/respirator_layer_1.png";
     }
 
     @Override

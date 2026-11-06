@@ -1,6 +1,7 @@
 package io.github.krabek515.canopy.entity;
 
 import net.minecraft.sounds.SoundEvent;
+import io.github.krabek515.canopy.sound.CanopySounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -74,11 +75,11 @@ public class Caiman extends Beast {
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.TURTLE_HURT;
+        return CanopySounds.CAIMAN_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.TURTLE_DEATH;
+        return CanopySounds.CAIMAN_DEATH.get();
     }
 }

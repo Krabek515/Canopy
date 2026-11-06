@@ -14,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -77,6 +78,11 @@ public class ClothingItem extends DyeableArmorItem {
     @Override
     public int getColor(ItemStack stack) {
         return this.color;
+    }
+
+    @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+        return "canopy:textures/models/armor/" + this.material.getName() + "_layer_" + (slot == EquipmentSlot.LEGS ? 2 : 1) + ".png";
     }
 
     @Override

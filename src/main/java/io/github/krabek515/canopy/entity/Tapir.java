@@ -1,6 +1,7 @@
 package io.github.krabek515.canopy.entity;
 
 import net.minecraft.sounds.SoundEvent;
+import io.github.krabek515.canopy.sound.CanopySounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -36,17 +37,17 @@ public class Tapir extends Beast {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.HOGLIN_AMBIENT;
+        return CanopySounds.TAPIR_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.HOGLIN_HURT;
+        return CanopySounds.TAPIR_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.HOGLIN_DEATH;
+        return CanopySounds.TAPIR_DEATH.get();
     }
 
     @Override

@@ -312,8 +312,7 @@
   "journal.canopy.craft.rubber": "A knot sits low on the smooth trunks. The gouge draws milky sap from it. It keeps the cloth from soaking.",
   "journal.canopy.craft.stew": "Over the fire, roots and meat in the clay pot turn into thick stew. One bowl — and the day is fed.",
   "journal.canopy.places.wet_season": "The season of wet days: downpours come twice as often and the canyon water warns twice as much.",
-  "journal.canopy.places.camp_built": "A platform on stilts and a hammock — a camp. Sleep, and you come back here. Rivers and mires stop being walls."
-,
+  "journal.canopy.places.camp_built": "A platform on stilts and a hammock — a camp. Sleep, and you come back here. Rivers and mires stop being walls.",
   "journal.canopy.hover_tip": "Hover a mark — the journal will tell.",
   "journal.canopy.node.craft_flask": "Flask",
   "journal.canopy.node.craft_flask.desc": "A bamboo stalk holds water. Drink from rivers, rain, bromeliads.",
@@ -449,8 +448,7 @@
   "journal.canopy.node.place_wet_season.hint": "The sky can change its mood.",
   "journal.canopy.node.place_camp": "Expedition camp",
   "journal.canopy.node.place_camp.desc": "Someone else's traces: cargo in cane, rotten decking. Strip it — it's useful.",
-  "journal.canopy.node.place_camp.hint": "Someone was here before."
-,
+  "journal.canopy.node.place_camp.hint": "Someone was here before.",
   "journal.canopy.node.plant_banana": "Banana bunch",
   "journal.canopy.node.plant_banana.desc": "Bunches ripen under the canopy. A ripe one comes off by hand — quick sweet food.",
   "journal.canopy.node.plant_banana.hint": "Something yellow hangs under the leaves.",
@@ -462,5 +460,8 @@
   "item.canopy.banana_bunch": "Banana bunch",
   "item.canopy.orchid": "Orchid",
   "block.canopy.orchid": "Orchid",
-  "block.canopy.banana_bunch": "Banana bunch"
+  "block.canopy.banana_bunch": "Banana bunch",
+  "command.canopy.help": "Canopy: locate — find the nearest jungle; temperature/wetness/wound/census/downpour/raid/flood/bait/tree/vein/camp/gas — debug (perm 2). Quick: /locate biome canopy:lowland",
+  "command.canopy.locate": "Nearest Canopy biome: %s at [%d, %d, %d]",
+  "command.canopy.locate_none": "No Canopy biome within 6400 blocks"
 }

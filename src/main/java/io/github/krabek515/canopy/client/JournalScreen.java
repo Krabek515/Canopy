@@ -17,7 +17,7 @@ public class JournalScreen extends Screen {
     private static final ResourceLocation PAPER = ResourceLocation.fromNamespaceAndPath(Canopy.MOD_ID, "textures/gui/journal.png");
     private static final int PAGE_W = 176;
     private static final int PAGE_H = 208;
-    private static final int MARK_W = 72;
+    private static final int MARK_W = 54;
     private static final int CELL = 24;
     private static final String[] TABS = {
             "journal.canopy.tab.now",
@@ -43,7 +43,7 @@ public class JournalScreen extends Screen {
         int left = pageLeft();
         int top = pageTop();
         for (int i = 0; i < TABS.length; i++) {
-            int x = left + PAGE_W - 8;
+            int x = left + PAGE_W - 2;
             int y = top + 36 + i * 30;
             if (mouseX >= x && mouseX <= x + MARK_W && mouseY >= y && mouseY <= y + 24) {
                 this.tab = i;
@@ -80,12 +80,13 @@ public class JournalScreen extends Screen {
 
     private void renderTabs(GuiGraphics graphics, int left, int top) {
         for (int i = 0; i < TABS.length; i++) {
-            int x = left + PAGE_W - 8;
+            int x = left + PAGE_W - 2;
             int y = top + 36 + i * 30;
             int mark = i == this.tab ? 0xFFE7D3AE : 0xFFC4A67A;
             graphics.fill(x, y, x + MARK_W, y + 24, mark);
             graphics.fill(x, y, x + MARK_W, y + 1, 0xFF6B4A2C);
             graphics.fill(x, y + 23, x + MARK_W, y + 24, 0xFF6B4A2C);
+            graphics.fill(x + MARK_W - 1, y, x + MARK_W, y + 24, 0xFF6B4A2C);
             Component label = Component.translatable(TABS[i]);
             int textX = x + (MARK_W - this.font.width(label)) / 2;
             graphics.drawString(this.font, label, textX, y + 8, 0xFF2C2116, false);
@@ -123,9 +124,15 @@ public class JournalScreen extends Screen {
         }
     }
 
-    /** Древо узлов: рамки с иконками, линии-«корни», тултип с описанием и крафтом. */
+    /** Древо узлов: рамки с иконками и подписями, линии-«корни», тултип с описанием и крафтом. */
     private void renderTree(GuiGraphics graphics, int left, int top, Journal journal, int mouseX, int mouseY) {
         List<JournalEntries.Node> nodes = JournalEntries.nodes(this.tab);
+        int learned = 0;
+        for (JournalEntries.Node node : nodes) {
+            if (journal.knows(node.fact())) {
+                learned++;
+            }
+        }
         for (JournalEntries.Node node : nodes) {
             if (node.parent() == null) {
                 continue;
@@ -135,41 +142,50 @@ public class JournalScreen extends Screen {
                 continue;
             }
             int x1 = left + parent.x() + CELL / 2;
-            int y1 = top + parent.y() + CELL / 2;
+            int y1 = top + parent.y() + CELL - 2;
             int x2 = left + node.x() + CELL / 2;
-            int y2 = top + node.y() + CELL / 2;
+            int y2 = top + node.y() + 2;
             int midY = (y1 + y2) / 2;
-            graphics.fill(Math.min(x1, x1), y1, Math.max(x1, x1) + 1, midY, 0xFF8A6A42);
-            graphics.fill(Math.min(x1, x2), midY, Math.max(x1, x2) + 1, midY + 1, 0xFF8A6A42);
-            graphics.fill(x2, midY, x2 + 1, y2, 0xFF8A6A42);
+            int ink = journal.knows(node.fact()) && journal.knows(parent.fact()) ? 0xFF6B4A2C : 0xFF9A8468;
+            graphics.fill(x1 - 1, y1, x1 + 1, midY, ink);
+            graphics.fill(Math.min(x1, x2), midY - 1, Math.max(x1, x2), midY + 1, ink);
+            graphics.fill(x2 - 1, midY, x2 + 1, y2, ink);
+            graphics.fill(x2 - 1, midY - 1, x2 + 1, midY + 1, 0xFF5C3E24);
         }
+        graphics.enableScissor(left + 4, top + 4, left + PAGE_W - 4, top + PAGE_H - 4);
         JournalEntries.Node hovered = null;
         for (JournalEntries.Node node : nodes) {
             int x = left + node.x();
             int y = top + node.y();
             boolean known = journal.knows(node.fact());
-            boolean hover = mouseX >= x && mouseX <= x + CELL && mouseY >= y && mouseY <= y + CELL;
-            int bg = known ? 0xFFE7D3AE : 0xFF9A8468;
+            boolean hover = mouseX >= x - 1 && mouseX <= x + CELL + 1 && mouseY >= y - 1 && mouseY <= y + CELL + 1;
+            int bg = known ? 0xFFE7D3AE : 0xFF8F7A60;
             if (hover) {
-                bg = known ? 0xFFF4E4C0 : 0xFFAE9678;
+                bg = known ? 0xFFF6E6C2 : 0xFFA8927A;
             }
+            // фаска: тёмный низ+право, светлый верх+лево — рамка как у кнопки
+            graphics.fill(x - 1, y - 1, x + CELL + 1, y + CELL + 1, 0xFF4A3018);
             graphics.fill(x, y, x + CELL, y + CELL, bg);
-            graphics.renderOutline(x, y, CELL, CELL, 0xFF6B4A2C);
+            graphics.fill(x, y, x + CELL, y + 1, 0x66FFFFFF);
+            graphics.fill(x, y + CELL - 1, x + CELL, y + CELL, 0x33000000);
             if (known) {
-                graphics.renderItem(node.icon().get(), x + 4, y + 4);
+                graphics.renderItem(node.icon().get(), x + 4, y + 2);
             } else {
                 Component q = Component.literal("?");
-                graphics.drawString(this.font, q, x + (CELL - this.font.width(q)) / 2, y + 8, 0xFF4A3828, false);
+                graphics.drawString(this.font, q, x + (CELL - this.font.width(q)) / 2, y + 6, 0xFF4A3828, false);
             }
             if (hover) {
                 hovered = node;
             }
         }
+        graphics.disableScissor();
+        Component tip = Component.translatable("journal.canopy.hover_tip");
+        Component progress = Component.literal(learned + " / " + nodes.size());
+        graphics.drawString(this.font, progress, left + 22, top + PAGE_H - 14, 0xFF6B4A2C, false);
         if (hovered != null) {
             renderNodeTooltip(graphics, left, top, journal, hovered, mouseX, mouseY);
         } else {
-            Component tip = Component.translatable("journal.canopy.hover_tip");
-            graphics.drawString(this.font, tip, left + (PAGE_W - this.font.width(tip)) / 2, top + PAGE_H - 16, 0xFF6B4A2C, false);
+            graphics.drawString(this.font, tip, left + PAGE_W - 22 - this.font.width(tip), top + PAGE_H - 14, 0xFF6B4A2C, false);
         }
     }
 
@@ -200,7 +216,7 @@ public class JournalScreen extends Screen {
     }
 
     private int pageLeft() {
-        return (this.width - PAGE_W - 48) / 2;
+        return (this.width - PAGE_W - MARK_W - 8) / 2;
     }
 
     private int pageTop() {

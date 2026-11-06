@@ -10,16 +10,18 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum ClothingMaterial implements ArmorMaterial {
-    FIBER(5, new int[]{1, 2, 3, 1}, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.BAMBOO)),
-    HIDE(15, new int[]{2, 5, 6, 2}, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(CanopyItems.HIDE.get()));
+    FIBER("fiber", 5, new int[]{1, 2, 3, 1}, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.BAMBOO)),
+    HIDE("hide", 15, new int[]{2, 5, 6, 2}, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(CanopyItems.HIDE.get()));
 
     private static final int[] DURABILITY = {13, 15, 16, 11};
+    private final String name;
     private final int factor;
     private final int[] defense;
     private final SoundEvent sound;
     private final Supplier<Ingredient> repair;
 
-    ClothingMaterial(int factor, int[] defense, SoundEvent sound, Supplier<Ingredient> repair) {
+    ClothingMaterial(String name, int factor, int[] defense, SoundEvent sound, Supplier<Ingredient> repair) {
+        this.name = name;
         this.factor = factor;
         this.defense = defense;
         this.sound = sound;
@@ -53,7 +55,7 @@ public enum ClothingMaterial implements ArmorMaterial {
 
     @Override
     public String getName() {
-        return "leather";
+        return this.name;
     }
 
     @Override

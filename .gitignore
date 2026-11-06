@@ -34,3 +34,7 @@ forge*changelog.txt
 # os
 .DS_Store
 Thumbs.db
+
+# agent/ide scaffolding
+.cursor/
+HANDOFF.md

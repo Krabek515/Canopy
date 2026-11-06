@@ -132,13 +132,6 @@ public final class SurvivalEvents {
     }
 
     @SubscribeEvent
-    public static void onDrops(LivingDropsEvent event) {
-        if (event.getEntity() instanceof ServerPlayer) {
-            event.getDrops().removeIf(dropped -> dropped.getItem().is(CanopyItems.DIARY.get()));
-        }
-    }
-
-    @SubscribeEvent
     public static void onClone(PlayerEvent.Clone event) {
         event.getOriginal().reviveCaps();
         event.getOriginal().getCapability(CanopyCapabilities.SURVIVAL).ifPresent(oldStats ->

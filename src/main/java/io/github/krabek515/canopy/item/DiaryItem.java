@@ -21,16 +21,16 @@ public class DiaryItem extends Item {
     }
 
     public static void ensure(ServerPlayer player) {
+        if (player.getPersistentData().getBoolean("CanopyJournalGiven")) {
+            return;
+        }
+        player.getPersistentData().putBoolean("CanopyJournalGiven", true);
         if (carrying(player)) {
             return;
         }
         ItemStack book = new ItemStack(CanopyItems.DIARY.get());
         if (!player.getInventory().add(book)) {
-            ItemStack previous = player.getInventory().getItem(0);
-            player.getInventory().setItem(0, book);
-            if (!previous.isEmpty()) {
-                player.drop(previous, false);
-            }
+            player.drop(book, false);
         }
     }
 
@@ -56,7 +56,7 @@ public class DiaryItem extends Item {
 
     @Override
     public boolean onDroppedByPlayer(ItemStack stack, Player player) {
-        return false;
+        return true;
     }
 
     @Override

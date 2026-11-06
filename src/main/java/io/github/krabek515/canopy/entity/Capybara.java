@@ -1,6 +1,7 @@
 package io.github.krabek515.canopy.entity;
 
 import net.minecraft.sounds.SoundEvent;
+import io.github.krabek515.canopy.sound.CanopySounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -44,16 +45,16 @@ public class Capybara extends Beast {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PIG_AMBIENT;
+        return CanopySounds.CAPYBARA_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PIG_HURT;
+        return CanopySounds.CAPYBARA_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PIG_DEATH;
+        return CanopySounds.CAPYBARA_DEATH.get();
     }
 }
